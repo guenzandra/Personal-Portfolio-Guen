@@ -1,0 +1,163 @@
+<!----index.php/main landing page-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Guen Zandrave - Portfolio</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="navbar">
+      <div class="logo">
+        <h1>Guen Zandrave</h1>
+      </div>
+
+  <nav>
+    <ul>
+      <li><a href="#index">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#services">Services</a></li><!---dropdown menu, clickable but at the same time when you hover it it will show the services options, Video Editing, Web Development, Software Development, Graphic Designing, Voice Over Acting-->
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+  <div class="button">
+    <button>Let's Connect</button>
+  </div>
+</div>
+
+<!-----hero section #1 ----->
+<section id="index" class="hero">
+  <div class="hero-content">
+    <!---two sides of the section-->
+    <div class="hero-left">
+      <!---i don't know what should title i put since i'm a developer but at the same time i worked as video editor, graphic designer and voice actor so i want my portfolio stick to my multifaceted skills rather than just one field-->
+      <a href="#contact" class="hero-button">Send a Message</a>
+      <div class="ratings">
+        <div class="rating">
+          <span class="star">&#9733;</span>
+          <span class="star">&#9733;</span>
+          <span class="star">&#9733;</span>
+          <span class="star">&#9733;</span>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="hero-right">
+      <img src="images/hero-image.png" alt="Hero Image" />
+    </div>
+  </div>
+</section>
+
+<!---short section for services offer-----add icons not emoji, and make it more visually appealing, and add a button to view all services, add animation on it, like for example web dev, the icon or emoji should have animation on it, and the rest, make sure it's horizontal--->
+
+<!----- About me Section #2 ----->
+
+<section id="about" class="about">
+  <div class="about-content">
+    <div class="categories-clicker">
+      <!---pagination style but make it default to about me if new loading --->
+      <button class="active" onclick="showCategory('about')">About Me</button>
+      <button onclick="showCategory('skills')">Skills</button>
+      <button onclick="showCategory('experience')">Experience</button>
+      <button onclick="showCategory('education')">Education</button>
+    </div>
+
+    <div class="category-content-aboutme">
+
+      <!---about me content--->
+      <div class="card-about">
+        <div class="card-image">
+          <img src="images/aboutme.png" alt="About Me Image" />
+        </div>
+        <div class="card-text">
+          <h2>About Me</h2>
+          <p>
+            I'm Guen Zandra Tiongson Ocba, a passionate and versatile professional with a diverse skill set in video editing, graphic design, web development, software development, and voice-over acting. With a keen eye for detail and a creative mindset, I strive to deliver high-quality work that exceeds expectations. My experience in various fields allows me to approach projects from different perspectives, ensuring innovative solutions and engaging content. I am dedicated to continuous learning and growth, always seeking new challenges to expand my expertise and contribute to the success of any project I undertake. <!----change this if needed i don't want to sound super professional---->
+          </p>
+        </div>
+      </div>
+
+      <!----skills----->
+      <div class="card-skills">
+        <div class="card-image">
+          <img src="images/skills.png" alt="Skills Image" />
+        </div>
+        <div class="card-text">
+          <h2>Skills</h2>
+          <ul>
+            <li>Video Editing</li>
+            <li>Graphic Design</li>
+            <li>Web Development</li>
+            <li>Software Development</li>
+            <li>Voice Over Acting</li>
+          </ul>
+          <h2>Technical Skills</h2>
+          <ul>
+            <li>HTML/CSS</li>
+            <li>PHP</li>
+            <li>JavaScript</li>
+            <li>Python</li>
+            <li>Adobe Creative Suite</li>
+            <li>Cap Cut Pro</li>
+          </ul>
+          <h2>Frameworks</h2>
+          <ul>
+            <li>React</li>
+            <li>Vue.js</li>
+            <li>Node.js</li>
+            <li>Laravel</li>
+          </ul>
+          <h2>Databases</h2>
+          <ul>
+            <li>MySQL</li>
+            <li>PostgreSQL</li>
+            <li>MongoDB</li>
+            <li>SQLite</li>
+            <li>Firebase</li>
+            <li>Supabase</li>
+          </ul>
+          <h2>Soft Skills</h2>
+          <ul>
+            <li>Communication</li>
+            <li>Teamwork</li>
+            <li>Problem Solving</li>
+            <li>Time Management</li>
+          </ul>
+          <h2>Languages</h2>
+          <ul>
+            <li>English</li>
+            <li>Filipino</li>
+          </ul>
+        </div>
+        <!---the skills should have separate cards per skills, and should be presented horizontally--->
+    </div>
+
+    <!----experience----->
+    <div class="card-experience">
+      <div class="card">
+        <!--job name, job details, job duration, link of the company if available, company name, notes-->
+      </div>
+      <!---pagination show top 3, then 3 again, by batch------>
+    </div>
+
+    <!---education----->
+    <div class="card-education">
+      <div class="educ-left">
+        <!---photo of the university--->
+        </div>
+      <div class="educ-right">
+        <!---university name, course, duration, notes--->
+      </div>
+    </div>
+
+    </div>
+  </div>
+</section>
+
+<!---projects---->
+<section id="projects" class="projects">
+
+</section>  hjhjhj
