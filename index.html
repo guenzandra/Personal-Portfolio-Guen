@@ -1,838 +1,220 @@
 <!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Guen Zandrave | Full Stack Developer &amp; Video Editor</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..800;1,9..144,300..800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Material+Symbols+Rounded&display=block"
-    rel="stylesheet">
-  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
-  <script>const cv = n => `rgb(var(--${n}) / <alpha-value>)`; tailwind.config = { theme: { extend: { colors: { bg: cv('bg'), fg: cv('fg'), card: cv('card'), ac: cv('ac'), gd: cv('gd'), soft: cv('soft'), sf: cv('sf') }, fontFamily: { serif: ['Fraunces', 'serif'], sans: ['Figtree', 'sans-serif'], mono: ['JetBrains Mono', 'monospace'] } } } }</script>
-  <style>
-    :root {
-      --bg: 247 245 243;
-      --fg: 22 18 17;
-      --card: 255 255 255;
-      --ac: 154 40 87;
-      --gd: 166 126 72;
-      --soft: 244 233 237;
-      --sf: 238 233 227
-    }
-
-    .dark {
-      --bg: 0 0 0;
-      --fg: 245 238 232;
-      --card: 22 18 20;
-      --ac: 224 140 170;
-      --gd: 214 184 140;
-      --soft: 44 26 34;
-      --sf: 20 16 18
-    }
-
-    html {
-      scroll-behavior: smooth;
-      scroll-padding-top: 6rem
-    }
-
-    body {
-      background: rgb(var(--bg));
-      color: rgb(var(--fg));
-      overflow-x: hidden;
-      transition: background .5s, color .5s
-    }
-
-    body:before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      z-index: -1;
-      pointer-events: none;
-      background: radial-gradient(50rem 34rem at 88% -8%, rgb(var(--ac)/.16), transparent 60%), radial-gradient(40rem 30rem at -8% 45%, rgb(var(--gd)/.15), transparent 60%), linear-gradient(rgb(var(--fg)/.05) 1px, transparent 1px) 0 0/56px 56px, linear-gradient(90deg, rgb(var(--fg)/.05) 1px, transparent 1px) 0 0/56px 56px
-    }
-
-    .ms {
-      font-family: 'Material Symbols Rounded';
-      font-style: normal;
-      font-weight: 400;
-      font-size: 1.3em;
-      line-height: 1;
-      display: inline-block;
-      white-space: nowrap;
-      text-transform: none;
-      letter-spacing: 0;
-      font-feature-settings: 'liga'
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: .5rem;
-      padding: .75rem 1.4rem;
-      border-radius: .6rem;
-      font-weight: 600;
-      font-size: .88rem;
-      transition: .3s
-    }
-
-    .bp {
-      background: rgb(var(--fg));
-      color: rgb(var(--bg))
-    }
-
-    .bp:hover {
-      background: rgb(var(--ac));
-      transform: translateY(-2px)
-    }
-
-    .bo {
-      border: 1px solid rgb(var(--fg)/.25)
-    }
-
-    .bo:hover {
-      border-color: rgb(var(--ac));
-      color: rgb(var(--ac))
-    }
-
-    .card {
-      position: relative;
-      background: rgb(var(--card)/.85);
-      border: 1px solid rgb(var(--fg)/.12);
-      border-radius: .75rem;
-      transition: transform .4s, box-shadow .4s, border-color .4s
-    }
-
-    .lift:hover {
-      transform: translateY(-4px);
-      border-color: rgb(var(--ac)/.6);
-      box-shadow: 0 22px 44px -28px rgb(var(--ac)/.6)
-    }
-
-    .chip {
-      display: inline-flex;
-      align-items: center;
-      gap: .4rem;
-      padding: .3rem .75rem;
-      border-radius: .4rem;
-      background: rgb(var(--soft));
-      font-size: .75rem;
-      font-weight: 600;
-      transition: .3s
-    }
-
-    button.chip:hover,
-    a.chip:hover,
-    .chip.on {
-      background: rgb(var(--ac));
-      color: rgb(var(--bg))
-    }
-
-    .fi {
-      width: 100%;
-      background: rgb(var(--fg)/.04);
-      border: 1px solid rgb(var(--fg)/.14);
-      border-radius: .6rem;
-      padding: .85rem 1rem;
-      outline: none;
-      transition: .3s
-    }
-
-    .fi:focus {
-      border-color: rgb(var(--ac));
-      background: rgb(var(--card))
-    }
-
-    .fw {
-      display: block;
-      font-family: Fraunces, serif;
-      font-size: clamp(3rem, 7.5vw, 5.6rem);
-      line-height: 1.02;
-      color: transparent;
-      -webkit-text-stroke: 1.5px rgb(var(--fg));
-      transition: .45s;
-      text-align: left
-    }
-
-    .fw.on {
-      color: rgb(var(--ac));
-      -webkit-text-stroke-color: rgb(var(--ac));
-      transform: translateX(1rem)
-    }
-
-    .fw:nth-child(1) {
-      font-weight: 800
-    }
-
-    .fw:nth-child(2) {
-      font-weight: 300;
-      font-style: italic
-    }
-
-    .fw:nth-child(3) {
-      font-weight: 500
-    }
-
-    .fw:nth-child(4) {
-      font-weight: 650;
-      font-style: italic
-    }
-
-    .pane {
-      position: absolute;
-      inset: 0;
-      padding: 1.25rem;
-      opacity: 0;
-      visibility: hidden;
-      transition: opacity .4s
-    }
-
-    .pane.on {
-      opacity: 1;
-      visibility: visible
-    }
-
-    .pane.on .ln,
-    .pane.on .sw {
-      animation: up .5s backwards;
-      animation-delay: calc(var(--i, 0)*.18s)
-    }
-
-    .k {
-      color: rgb(var(--ac));
-      font-weight: 400
-    }
-
-    .s {
-      color: rgb(var(--gd));
-      font-weight: 400
-    }
-
-    .d {
-      opacity: .5
-    }
-
-    .sw {
-      flex: 1;
-      height: 52px;
-      border-radius: .5rem
-    }
-
-    .tr {
-      position: relative;
-      height: 22px;
-      border-radius: 5px;
-      background: rgb(var(--fg)/.07)
-    }
-
-    .tr i {
-      position: absolute;
-      top: 2px;
-      bottom: 2px;
-      border-radius: 3px;
-      background: rgb(var(--ac)/.55)
-    }
-
-    .tr:nth-child(2) i {
-      background: rgb(var(--gd)/.6)
-    }
-
-    .ph {
-      position: absolute;
-      top: -4px;
-      bottom: -4px;
-      width: 2px;
-      background: rgb(var(--ac));
-      animation: ph 5s linear infinite
-    }
-
-    .wv {
-      display: flex;
-      align-items: center;
-      gap: 3px;
-      height: 110px
-    }
-
-    .wv i {
-      flex: 1;
-      height: 100%;
-      border-radius: 2px;
-      background: rgb(var(--ac));
-      transform: scaleY(.15);
-      animation: wv 1.3s ease-in-out infinite;
-      animation-delay: calc(var(--i)*-.09s)
-    }
-
-    #tabs button {
-      position: relative;
-      z-index: 1;
-      padding: .55rem 1.1rem;
-      border-radius: .5rem;
-      font-size: .85rem;
-      font-weight: 600;
-      white-space: nowrap;
-      transition: color .3s
-    }
-
-    #tabs .on {
-      color: rgb(var(--bg))
-    }
-
-    #pill {
-      position: absolute;
-      top: 6px;
-      bottom: 6px;
-      left: 0;
-      border-radius: .5rem;
-      background: rgb(var(--ac));
-      transition: .45s cubic-bezier(.6, .1, .2, 1)
-    }
-
-    .ab {
-      width: 2.5rem;
-      height: 2.5rem;
-      border-radius: .6rem;
-      border: 1px solid rgb(var(--fg)/.2);
-      display: grid;
-      place-items: center;
-      transition: .3s
-    }
-
-    .ab:hover:not(:disabled) {
-      background: rgb(var(--ac));
-      color: rgb(var(--bg));
-      border-color: rgb(var(--ac))
-    }
-
-    .ab:disabled {
-      opacity: .3
-    }
-
-    .th.on {
-      opacity: 1;
-      border-color: rgb(var(--ac))
-    }
-
-    .gc {
-      width: 11px;
-      height: 11px;
-      border-radius: 3px;
-      background: rgb(var(--ac)/calc(.08 + var(--l)*.23))
-    }
-
-    #gh {
-      display: grid;
-      grid-template-rows: repeat(7, 11px);
-      grid-auto-flow: column;
-      gap: 4px
-    }
-
-    .dark .ghi {
-      filter: invert(.92) hue-rotate(180deg)
-    }
-
-    .no-sb {
-      scrollbar-width: none
-    }
-
-    .no-sb::-webkit-scrollbar {
-      display: none
-    }
-
-    .rv {
-      opacity: 0;
-      transform: translateY(24px);
-      transition: opacity .9s, transform .9s cubic-bezier(.2, .8, .2, 1)
-    }
-
-    .rv.in {
-      opacity: 1;
-      transform: none
-    }
-
-    .mq {
-      animation: mq 34s linear infinite
-    }
-
-    .caret {
-      animation: bl 1s steps(1) infinite
-    }
-
-    .a0 {
-      animation: fl 3s ease-in-out infinite
-    }
-
-    .a1 {
-      animation: pl 1.8s ease-in-out infinite
-    }
-
-    .fade,
-    .toast {
-      animation: up .5s
-    }
-
-    .toast.out {
-      opacity: 0;
-      transition: .4s
-    }
-
-    .ld-bar {
-      animation: ld 2s ease forwards
-    }
-
-    .hi {
-      animation: up .8s backwards
-    }
-
-    @keyframes up {
-      from {
-        opacity: 0;
-        transform: translateY(14px)
-      }
-    }
-
-    @keyframes fl {
-      50% {
-        transform: translateY(-8px)
-      }
-    }
-
-    @keyframes pl {
-      50% {
-        transform: scale(1.25)
-      }
-    }
-
-    @keyframes ld {
-      from {
-        width: 0
-      }
-    }
-
-    @keyframes ph {
-      from {
-        left: 0
-      }
-
-      to {
-        left: 100%
-      }
-    }
-
-    @keyframes wv {
-      50% {
-        transform: scaleY(1)
-      }
-    }
-
-    @keyframes mq {
-      to {
-        transform: translateX(-50%)
-      }
-    }
-
-    @keyframes bl {
-      50% {
-        opacity: 0
-      }
-    }
-
-    @media(prefers-reduced-motion:reduce) {
-      * {
-        animation: none !important;
-        transition: none !important
-      }
-    }
-  </style>
-  <noscript>
-    <style>
-      .rv {
-        opacity: 1;
-        transform: none
-      }
-
-      #ld {
-        display: none
-      }
-    </style>
-  </noscript>
-</head>
-
+<html lang="en"><head><title>Guen Zandrave | Full Stack Developer &amp; Video Editor</title><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..800;1,9..144,300..800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Material+Symbols+Rounded&display=block" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"><script src="https://cdn.tailwindcss.com/3.4.17"></script><script>const cv=n=>`rgb(var(--${n}) / <alpha-value>)`;tailwind.config={theme:{extend:{colors:{bg:cv("bg"),fg:cv("fg"),card:cv("card"),ac:cv("ac"),gd:cv("gd"),soft:cv("soft"),sf:cv("sf")},fontFamily:{serif:["Fraunces","serif"],sans:["Figtree","sans-serif"],mono:["JetBrains Mono","monospace"]}}}}</script><style>
+:root{--bg:247 245 243;--fg:22 18 17;--card:255 255 255;--ac:154 40 87;--gd:166 126 72;--soft:244 233 237;--sf:238 233 227}
+.dark{--bg:0 0 0;--fg:245 238 232;--card:22 18 20;--ac:224 140 170;--gd:214 184 140;--soft:44 26 34;--sf:20 16 18}
+html{scroll-behavior:smooth;scroll-padding-top:6rem}
+body{background:rgb(var(--bg));color:rgb(var(--fg));overflow-x:hidden;transition:background .5s,color .5s}
+body:before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(50rem 34rem at 88% -8%,rgb(var(--ac)/.16),transparent 60%),radial-gradient(40rem 30rem at -8% 45%,rgb(var(--gd)/.15),transparent 60%),linear-gradient(rgb(var(--fg)/.05) 1px,transparent 1px) 0 0/56px 56px,linear-gradient(90deg,rgb(var(--fg)/.05) 1px,transparent 1px) 0 0/56px 56px}
+.ms{font-family:'Material Symbols Rounded';font-style:normal;font-weight:400;font-size:1.3em;line-height:1;display:inline-block;white-space:nowrap;text-transform:none;letter-spacing:0;font-feature-settings:'liga'}
+.btn{display:inline-flex;align-items:center;gap:.5rem;padding:.75rem 1.4rem;border-radius:.6rem;font-weight:600;font-size:.88rem;transition:.3s}
+.bp{background:rgb(var(--fg));color:rgb(var(--bg))}.bp:hover{background:rgb(var(--ac));transform:translateY(-2px)}
+.bo{border:1px solid rgb(var(--fg)/.25)}.bo:hover{border-color:rgb(var(--ac));color:rgb(var(--ac))}
+.card{position:relative;background:rgb(var(--card)/.85);border:1px solid rgb(var(--fg)/.12);border-radius:.75rem;transition:transform .4s,box-shadow .4s,border-color .4s}
+.lift:hover{transform:translateY(-4px);border-color:rgb(var(--ac)/.6);box-shadow:0 22px 44px -28px rgb(var(--ac)/.6)}
+.spot{background:radial-gradient(16rem circle at var(--mx,50%) var(--my,-20%),rgb(var(--ac)/.2),transparent 65%),rgb(var(--card)/.85)}
+.chip{display:inline-flex;align-items:center;gap:.4rem;padding:.3rem .75rem;border-radius:.4rem;background:rgb(var(--soft));font-size:.75rem;font-weight:600;transition:.3s}
+button.chip:hover,a.chip:hover,.chip.on{background:rgb(var(--ac));color:rgb(var(--bg))}
+.fi{width:100%;background:rgb(var(--fg)/.04);border:1px solid rgb(var(--fg)/.14);border-radius:.6rem;padding:.85rem 1rem;outline:none;transition:.3s}.fi:focus{border-color:rgb(var(--ac));background:rgb(var(--card))}
+.soc{width:2.7rem;height:2.7rem;display:grid;place-items:center;border-radius:.7rem;border:1px solid rgb(var(--fg)/.2);font-size:1.05rem;transition:.3s}.soc:hover{background:rgb(var(--ac));color:rgb(var(--bg));border-color:rgb(var(--ac));transform:translateY(-3px)}
+:focus-visible{outline:2px solid rgb(var(--ac));outline-offset:3px}
+/* hero */
+.row{display:flex;align-items:baseline;gap:1rem;width:100%;text-align:left;transition:.45s}
+.row b{font:italic 300 clamp(2.3rem,5.2vw,3.6rem)/1.05 Fraunces,serif;color:transparent;-webkit-text-stroke:1.4px rgb(var(--fg));transition:.4s}
+.row small{font-size:.8rem;opacity:.55;transition:.4s}
+.row.on{transform:translateX(.8rem)}.row.on b{color:rgb(var(--ac));-webkit-text-stroke-color:rgb(var(--ac));font-style:normal;font-weight:800}.row.on small{opacity:1;color:rgb(var(--ac))}
+.arch,.ring{border-radius:999px 999px 1.25rem 1.25rem}.arch{overflow:hidden}
+.ring{position:absolute;inset:0;border:1.5px solid rgb(var(--ac));transform:translate(1.1rem,1.1rem)}
+.tilt{transform:perspective(900px) rotateY(var(--ry,0deg)) rotateX(var(--rx,0deg));transition:transform .25s}
+.spin{animation:spin 16s linear infinite}
+.pane{position:absolute;inset:0;padding:1rem;opacity:0;visibility:hidden;transition:opacity .4s}.pane.on{opacity:1;visibility:visible}.pane.on>*{animation:up .5s backwards}
+pre.code{font:11px/1.6 'JetBrains Mono',monospace}.k{color:rgb(var(--ac));font-weight:400}.s{color:rgb(var(--gd));font-weight:400}.d{opacity:.5}
+.sw{flex:1;height:34px;border-radius:.4rem}
+.tr{position:relative;height:18px;border-radius:5px;background:rgb(var(--fg)/.07)}.tr i{position:absolute;top:2px;bottom:2px;border-radius:3px;background:rgb(var(--ac)/.55)}.tr:nth-child(2) i{background:rgb(var(--gd)/.6)}
+.ph{position:absolute;top:-4px;bottom:-4px;width:2px;background:rgb(var(--ac));animation:ph 5s linear infinite}
+.wv{display:flex;align-items:center;gap:3px;height:84px}.wv i{flex:1;height:100%;border-radius:2px;background:rgb(var(--ac));transform:scaleY(.15);animation:wv 1.3s ease-in-out infinite;animation-delay:calc(var(--i)*-.09s)}
+/* tabs, scrollers, misc */
+#tabs button{position:relative;z-index:1;padding:.55rem 1.1rem;border-radius:.5rem;font-size:.85rem;font-weight:600;white-space:nowrap;transition:color .3s}#tabs .on{color:rgb(var(--bg))}
+#pill{position:absolute;top:6px;bottom:6px;left:0;border-radius:.5rem;background:rgb(var(--ac));transition:.45s cubic-bezier(.6,.1,.2,1)}
+.ab{width:2.5rem;height:2.5rem;border-radius:.6rem;border:1px solid rgb(var(--fg)/.2);display:grid;place-items:center;transition:.3s}.ab:hover:not(:disabled){background:rgb(var(--ac));color:rgb(var(--bg));border-color:rgb(var(--ac))}.ab:disabled{opacity:.3}
+.drag{cursor:grab;scroll-snap-type:x mandatory}.drag *{-webkit-user-drag:none}.drag.go{cursor:grabbing;scroll-snap-type:none;user-select:none}
+.th.on{opacity:1;border-color:rgb(var(--ac))}
+.gc{width:11px;height:11px;border-radius:3px;background:rgb(var(--ac)/calc(.08 + var(--l)*.23))}#gh{display:grid;grid-template-rows:repeat(7,11px);grid-auto-flow:column;gap:4px}.dark .ghi{filter:invert(.92) hue-rotate(180deg)}
+.no-sb{scrollbar-width:none}.no-sb::-webkit-scrollbar{display:none}
+.rv{opacity:0;transform:translateY(24px);transition:opacity .9s,transform .9s cubic-bezier(.2,.8,.2,1)}.rv.in{opacity:1;transform:none}
+.mq{animation:mq 34s linear infinite}.caret{animation:bl 1s steps(1) infinite}.a0{animation:fl 3s ease-in-out infinite}.a1{animation:pl 1.8s ease-in-out infinite}
+.fade,.toast{animation:up .5s}.toast.out{opacity:0;transition:.4s}.ld-bar{animation:ld 2s ease forwards}.hi{animation:up .8s backwards}
+@keyframes up{from{opacity:0;transform:translateY(14px)}}@keyframes fl{50%{transform:translateY(-8px)}}@keyframes pl{50%{transform:scale(1.25)}}@keyframes ld{from{width:0}}@keyframes ph{from{left:0}to{left:100%}}@keyframes wv{50%{transform:scaleY(1)}}@keyframes mq{to{transform:translateX(-50%)}}@keyframes bl{50%{opacity:0}}@keyframes spin{to{transform:rotate(360deg)}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+.off{display:none!important}
+</style></head>
 <body class="font-sans antialiased">
-  <div id="sp" class="fixed top-0 left-0 h-0.5 bg-ac z-[90]"></div>
-  <div id="ld" class="fixed inset-0 z-[100] grid place-items-center bg-bg px-5 transition-opacity duration-700">
-    <div class="card w-full max-w-md overflow-hidden">
-      <div class="flex items-center gap-1.5 px-4 py-3 border-b border-fg/10"><span
-          class="w-2.5 h-2.5 rounded-full bg-ac"></span><span class="w-2.5 h-2.5 rounded-full bg-gd"></span><span
-          class="w-2.5 h-2.5 rounded-full bg-fg/25"></span><span
-          class="ml-3 font-mono text-[11px] opacity-50">portfolio.init</span></div>
-      <pre id="lt" class="font-mono text-[13px] leading-7 p-5 min-h-[9.5rem] whitespace-pre-wrap"></pre>
-      <div class="h-0.5 bg-fg/10">
-        <div class="h-full w-full bg-ac ld-bar"></div>
-      </div>
-    </div>
-  </div>
-  <div id="toasts" class="fixed bottom-6 inset-x-0 z-[70] flex flex-col items-center gap-2 pointer-events-none px-4">
-  </div>
-  <div id="md" class="fixed inset-0 z-[80] hidden place-items-center p-4 bg-black/60 backdrop-blur-sm">
-    <div id="mb" class="card relative w-full max-h-[90vh] overflow-auto p-6 md:p-8 fade"></div>
-  </div>
+<div id="ld" class="fixed inset-0 z-[100] grid place-items-center bg-bg px-5 transition-opacity duration-700"><div class="card w-full max-w-md overflow-hidden"><pre id="lt" class="font-mono text-[13px] leading-7 p-5 min-h-[8rem] whitespace-pre-wrap"></pre><div class="h-0.5 bg-fg/10"><div class="h-full bg-ac ld-bar"></div></div></div></div>
+<main>
+<section id="index" class="min-h-screen flex items-center pt-32 pb-24 px-5"><div class="mx-auto max-w-6xl w-full grid lg:grid-cols-12 gap-16 items-center">
+ <div class="lg:col-span-7">
+  <p class="font-mono text-ac hi">Hello World! I'm<span class="caret">_</span></p>
+  <h1 class="font-serif font-medium text-5xl sm:text-7xl leading-[.98] tracking-tight mt-3 hi" style="animation-delay:.15s">Guen Zandrave</h1>
+  <p class="font-serif italic text-xl sm:text-2xl mt-3 opacity-90 hi" style="animation-delay:.3s">Full Stack Developer &amp; Video Editor</p>
+  <p class="text-lg opacity-75 mt-4 max-w-md leading-relaxed hi" style="animation-delay:.4s">One person for the whole job: I build it, cut it, design it and voice it.</p>
+  <div id="fwl" class="mt-8 flex flex-col gap-1 max-w-md hi" style="animation-delay:.5s"></div>
+  <p class="mt-5 text-sm opacity-80 max-w-md min-h-[2.6rem]"><span id="fd"></span> <button id="fr" class="text-ac font-semibold">See related work &rarr;</button></p>
+  <div class="flex flex-wrap items-center gap-3 mt-7 hi" style="animation-delay:.6s"><a href="#contact" class="btn bp">Start a project</a><a href="#projects" class="btn bo">View selected work</a><span class="chip"><span class="w-2 h-2 rounded-full bg-green-500 a1"></span>Available for new projects</span></div>
+ </div>
+ <div class="lg:col-span-5 relative mx-auto w-[min(86vw,380px)] hi" style="animation-delay:.4s"><div class="absolute -top-6 -right-6 w-64 h-64 rounded-full bg-ac/25 blur-3xl"></div>
+  <div id="tilt" class="tilt relative aspect-[4/5]"><div class="ring"></div>
+   <div class="arch relative w-full h-full bg-gradient-to-b from-soft to-sf border border-fg/10 grid place-items-center"><i class="ms text-7xl text-ac/40">person</i><img src="assets/img/hero-profile.jpg" alt="Guen Zandrave" class="absolute inset-0 w-full h-full object-cover" style="object-position:50% 28%" onerror="this.remove()"><div class="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/50 to-transparent"></div></div>
+   <div class="absolute -left-3 sm:-left-9 top-8 w-24 h-24 rounded-full bg-card/90 border border-fg/10 grid place-items-center"><svg class="spin absolute inset-0" viewBox="0 0 120 120"><defs><path id="c" d="M60,60 m-46,0 a46,46 0 1,1 92,0 a46,46 0 1,1 -92,0"/></defs><text font-size="11.5" letter-spacing="2.4" fill="currentColor"><textPath href="#c">CODE · CUT · CRAFT · VOICE · </textPath></text></svg><i class="ms text-ac">north_east</i></div>
+   <div class="card absolute -right-3 sm:-right-6 top-14 px-3 py-2 font-mono text-xs a0">&lt;FullStack /&gt;</div>
+   <div class="card absolute -right-3 sm:-right-6 top-1/2 px-3 py-2 text-xs font-semibold a0" style="animation-delay:-1.5s">5+ years creating</div>
+   <div class="card absolute -left-3 sm:-left-12 -bottom-8 w-60 overflow-hidden shadow-2xl backdrop-blur-md"><div class="flex items-center gap-1.5 px-3 py-2 border-b border-fg/10"><span class="w-2 h-2 rounded-full bg-ac"></span><span class="w-2 h-2 rounded-full bg-gd"></span><span class="w-2 h-2 rounded-full bg-fg/25"></span><span id="ftt" class="ml-2 font-mono text-[10px] opacity-60"></span></div><div id="pn" class="relative h-40"></div></div>
+  </div></div>
+</div></section>
+<div class="border-y border-fg/10 py-4 overflow-hidden text-sm opacity-75"><div id="mq" class="flex w-max mq"></div></div>
 
-  <header class="fixed top-3 inset-x-3 md:inset-x-6 z-40">
-    <div
-      class="mx-auto max-w-6xl flex items-center justify-between rounded-xl bg-card/75 backdrop-blur-xl border border-fg/10 px-3 py-2">
-      <nav class="hidden lg:flex items-center gap-7 text-sm font-medium pl-3"><a href="#index"
-          class="hover:text-ac">Home</a><a href="#craft" class="hover:text-ac">Craft</a><a href="#about"
-          class="hover:text-ac">About</a><a href="#projects" class="hover:text-ac">Projects</a>
-        <div class="relative group"><a href="#" onclick="svc();return false"
-            class="flex items-center hover:text-ac">Services<i class="ms">expand_more</i></a>
-          <div
-            class="absolute left-1/2 -translate-x-1/2 top-full pt-4 opacity-0 invisible group-hover:opacity-100 group-hover:visible group-focus-within:opacity-100 group-focus-within:visible transition">
-            <div id="svm" class="w-64 rounded-xl bg-card border border-fg/10 p-2 shadow-2xl"></div>
-          </div>
-        </div>
-        <a href="#reviews" class="hover:text-ac">Reviews</a><a href="#contact" class="hover:text-ac">Contact</a>
-      </nav>
-      <div class="flex items-center gap-1.5 ml-auto"><button id="theme" aria-label="Toggle dark mode"
-          class="w-10 h-10 rounded-lg grid place-items-center hover:bg-soft"><i class="ms">dark_mode</i></button><a
-          href="#contact" class="btn bp hidden sm:inline-flex">Let's Connect</a><button id="burger" aria-label="Menu"
-          class="lg:hidden w-10 h-10 rounded-lg grid place-items-center hover:bg-soft"><i class="ms">menu</i></button>
-      </div>
-    </div>
-    <div id="mob" class="hidden mt-2 rounded-xl bg-card border border-fg/10 p-5 flex-col gap-4 lg:hidden font-medium"><a
-        href="#index">Home</a><a href="#craft">Craft</a><a href="#about">About</a><a href="#projects">Projects</a><a
-        href="#" onclick="svc();return false">Services</a><a href="#reviews">Reviews</a><a href="#contact">Contact</a>
-    </div>
-  </header>
+<section id="reviews" class="py-28 px-5 bg-sf/60"><div class="mx-auto max-w-6xl rv">
+ <div class="flex flex-wrap items-end justify-between gap-8 mb-12"><h2 class="font-serif text-4xl md:text-7xl font-medium leading-[1.02] max-w-3xl">Don't take my word <i class="font-light">for it.</i></h2>
+  <div class="flex items-center gap-4"><b id="avg" class="font-serif text-6xl text-ac"></b><div><div class="text-gd tracking-widest">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p id="avn" class="text-xs opacity-60 mt-1"></p></div></div></div>
+ <div id="rvw"></div></div></section>
 
-  <main>
-    <section id="index" class="min-h-screen flex items-center pt-32 pb-16 px-5">
-      <div class="mx-auto max-w-6xl w-full grid lg:grid-cols-12 gap-14 items-center">
-        <div class="lg:col-span-7">
-          <p class="font-mono text-ac hi">Hello World! I'm<span class="caret">_</span></p>
-          <h1 class="font-serif font-medium text-5xl sm:text-7xl leading-[.98] tracking-tight mt-4 hi"
-            style="animation-delay:.15s">Guen Zandrave</h1>
-          <p class="font-serif italic text-2xl sm:text-3xl mt-4 opacity-90 hi" style="animation-delay:.3s">Full Stack
-            Developer &amp; Video Editor</p>
-          <p class="text-lg opacity-75 mt-6 max-w-xl leading-relaxed hi" style="animation-delay:.45s">who also designs
-            brand graphics and records voice overs. I take an idea from the first line of code to the final cut, with
-            the same care at every step.</p>
-          <div class="flex flex-wrap items-center gap-3 mt-9 hi" style="animation-delay:.6s"><a href="#contact"
-              class="btn bp">Start a project</a><a href="#projects" class="btn bo">View selected work</a><span
-              class="chip ml-1"><span class="w-2 h-2 rounded-full bg-green-500 a1"></span>Available for new
-              projects</span></div>
-        </div>
-        <div class="lg:col-span-5 relative mx-auto w-[min(88vw,400px)] hi" style="animation-delay:.4s">
-          <div
-            class="relative aspect-[4/5] rounded-xl overflow-hidden border border-fg/10 bg-gradient-to-br from-soft to-sf grid place-items-center">
-            <div class="text-center px-8"><i class="ms text-6xl text-ac/40">person</i>
-              <p class="font-mono text-[11px] opacity-50 mt-3">images/hero-image.png</p>
-            </div><img src="assets/img/hero-profile.jpg" alt="Guen Zandrave"
-              class="absolute inset-0 w-full h-full object-cover" onerror="this.remove()">
-          </div>
-          <div class="card absolute -left-5 bottom-8 px-4 py-3 text-sm font-semibold a0">5+ years creating</div>
-          <div class="card absolute -right-3 top-8 px-4 py-3 font-mono text-xs a0" style="animation-delay:-1.5s">
-            &lt;FullStack /&gt;</div>
-        </div>
-      </div>
-    </section>
+<section id="projects" class="py-24 px-5"><div class="mx-auto max-w-6xl rv">
+ <a href="#projects" id="back" class="chip off mb-6"><i class="ms">arrow_back</i>Back home</a>
+ <div class="flex flex-wrap items-end justify-between gap-6"><h2 class="font-serif text-4xl md:text-6xl font-medium"><span id="pt">Selected work</span><sup id="cnt" class="font-mono text-base text-ac ml-2"></sup></h2><div id="flt" class="flex flex-wrap gap-2"></div></div>
+ <div id="pj" class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 mt-12"></div><div id="more" class="mt-10 text-center"></div></div></section>
 
-    <div class="border-y border-fg/10 py-4 overflow-hidden text-sm opacity-75">
-      <div id="mq" class="flex w-max mq"></div>
-    </div>
+<section id="services" class="py-24 px-5 bg-sf/60"><div class="mx-auto max-w-6xl rv">
+ <h2 class="font-serif text-4xl md:text-6xl font-medium max-w-2xl">Five crafts, <i class="font-light">one desk.</i></h2>
+ <div id="svl" class="grid md:grid-cols-6 gap-4 mt-12"></div></div></section>
 
-    <section id="craft" class="py-24 px-5">
-      <div class="mx-auto max-w-6xl rv">
-        <div class="grid lg:grid-cols-2 gap-10 mt-12 items-center">
-          <div id="fwl"></div>
-          <div class="card overflow-hidden">
-            <div class="flex items-center gap-1.5 px-4 py-3 border-b border-fg/10"><span
-                class="w-2.5 h-2.5 rounded-full bg-ac"></span><span class="w-2.5 h-2.5 rounded-full bg-gd"></span><span
-                class="w-2.5 h-2.5 rounded-full bg-fg/25"></span><span id="ftt"
-                class="ml-3 font-mono text-[11px] opacity-60"></span></div>
-            <div class="relative h-80">
-              <div class="pane">
-                <div class="font-mono text-[12.5px] leading-7 whitespace-pre">
-                  <div class="ln d">// idea to production</div>
-                  <div class="ln" style="--i:1"><b class="k">const</b> app = <b class="k">await</b> build({</div>
-                  <div class="ln" style="--i:2"> stack: <b class="s">["Laravel", "React", "Node"]</b>,</div>
-                  <div class="ln" style="--i:3"> responsive: <b class="k">true</b>, fast: <b class="k">true</b></div>
-                  <div class="ln" style="--i:4">});</div>
-                  <div class="ln" style="--i:5">deploy(app); <span class="d">// shipped</span></div>
-                </div>
-              </div>
-              <div class="pane">
-                <div
-                  class="h-28 rounded-lg border border-fg/10 bg-gradient-to-br from-soft to-sf grid place-items-center">
-                  <i class="ms text-5xl text-ac">play_circle</i></div>
-                <div class="relative flex flex-col gap-2 mt-5">
-                  <div class="tr"><i style="left:0;width:32%"></i><i style="left:36%;width:24%"></i><i
-                      style="left:64%;width:30%"></i></div>
-                  <div class="tr"><i style="left:8%;width:40%"></i><i style="left:52%;width:36%"></i></div>
-                  <div class="tr"><i style="left:0;width:70%"></i></div><span class="ph"></span>
-                </div>
-                <p class="font-mono text-[11px] opacity-50 mt-4">Video, audio and titles on one timeline</p>
-              </div>
-              <div class="pane">
-                <div class="flex gap-2"><span class="sw bg-ac"></span><span class="sw bg-gd" style="--i:1"></span><span
-                    class="sw bg-soft border border-fg/10" style="--i:2"></span><span
-                    class="sw bg-sf border border-fg/10" style="--i:3"></span><span class="sw bg-fg"
-                    style="--i:4"></span></div>
-                <p class="font-serif text-6xl mt-6 leading-none">Aa <i class="text-ac">Bb</i></p>
-                <p class="text-xs opacity-60 mt-3">Fraunces and Figtree on an 8pt grid</p>
-                <div class="flex flex-wrap gap-2 mt-5"><span class="chip">Logo</span><span
-                    class="chip">Poster</span><span class="chip">Social kit</span></div>
-              </div>
-              <div class="pane">
-                <div class="flex items-center justify-between font-mono text-[11px] opacity-60"><span
-                    class="flex items-center gap-2"><span
-                      class="w-2 h-2 rounded-full bg-ac a1"></span>REC</span><span>00:12 / 00:30</span></div>
-                <div id="wv" class="wv mt-4"></div>
-                <p class="text-xs opacity-60 mt-4">Narration, ads, audiobooks and characters</p>
-              </div>
-            </div>
-            <div class="p-5 border-t border-fg/10"><b id="ft" class="font-serif text-xl"></b>
-              <p id="fd" class="text-sm opacity-75 mt-1"></p><button onclick="flt(F[cur][4]);location.hash='projects'"
-                class="text-ac text-sm font-semibold mt-3">See related work</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+<section id="github" class="py-24 px-5"><div class="mx-auto max-w-6xl rv">
+ <div class="flex flex-wrap items-end justify-between gap-4"><h2 class="font-serif text-4xl md:text-6xl font-medium">My code, day by day</h2><a id="ghl" target="_blank" rel="noopener" class="btn bo">View GitHub<i class="ms">north_east</i></a></div>
+ <div class="card p-6 md:p-8 mt-10"><div class="overflow-x-auto pb-2 no-sb"><div id="gh"></div></div><p id="ghn" class="text-xs opacity-60 mt-4">Showing sample data until your live graph loads.</p></div></div></section>
 
-    <section id="about" class="py-24 px-5 bg-sf/60">
-      <div class="mx-auto max-w-6xl">
-        <h2 class="font-serif text-4xl md:text-6xl font-medium">The person behind the pixels</h2>
-        <div id="tabs"
-          class="relative inline-flex max-w-full overflow-x-auto no-sb mt-8 p-1.5 rounded-xl bg-card border border-fg/10">
-          <span id="pill"></span><button data-t="about">About Me</button><button data-t="skills">Skills</button><button
-            data-t="experience">Experience</button><button data-t="education">Education</button></div>
-        <div class="mt-10 rv">
-          <div class="pn" id="p-about">
-            <div class="card grid md:grid-cols-5 overflow-hidden">
-              <div class="md:col-span-2 relative min-h-72 bg-gradient-to-br from-soft to-sf grid place-items-center"><i
-                  class="ms text-8xl text-ac/40">person</i><img src="assets/img/sablay-wthbg.png" alt="Guen Zandrave"
-                  class="absolute inset-0 w-full h-full object-cover" onerror="this.remove()"></div>
-              <div class="md:col-span-3 p-8 md:p-12">
-                <h3 class="font-serif text-3xl md:text-4xl font-medium">Hey, I'm Guen Zandra Tiongson Ocba.</h3>
-                <p class="mt-5 opacity-80 leading-relaxed max-w-prose">Guen works just fine. I started out writing code,
-                  then kept wandering into other crafts: cutting videos, designing graphics and recording voice overs.
-                  Hopping between them keeps my ideas fresh, and it means one person can build your site, design its
-                  look, edit the promo and narrate it too. I learn by doing, and I like projects where nobody says
-                  "that's not how it's done."</p>
-                <div class="grid grid-cols-3 gap-4 mt-8 pt-6 border-t border-fg/10">
-                  <div><b class="font-serif text-5xl text-ac" data-n="5">0</b><span
-                      class="font-serif text-3xl text-ac">+</span>
-                    <p class="text-xs opacity-60 mt-1">Years creating</p>
-                  </div>
-                  <div><b class="font-serif text-5xl text-ac" data-n="50">0</b><span
-                      class="font-serif text-3xl text-ac">+</span>
-                    <p class="text-xs opacity-60 mt-1">Projects shipped</p>
-                  </div>
-                  <div><b class="font-serif text-5xl text-ac" data-n="5">0</b>
-                    <p class="text-xs opacity-60 mt-1">Crafts, one person</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="pn" id="p-skills" hidden></div>
-          <div class="pn" id="p-experience" hidden></div>
-          <div class="pn" id="p-education" hidden>
-            <div class="card grid md:grid-cols-2 overflow-hidden">
-              <div class="relative min-h-64 bg-gradient-to-br from-sf to-soft grid place-items-center"><i
-                  class="ms text-8xl text-ac/50">school</i><img src="assets/img/laguna-university.jpg" alt="University campus"
-                  class="absolute inset-0 w-full h-full object-cover" onerror="this.remove()"></div>
-              <div class="p-8 md:p-12"><span class="chip">2021 to 2026</span>
-                <h3 class="font-serif text-4xl font-medium mt-4">Laguna University</h3>
-                <p class="text-ac font-semibold mt-1">Bachelor of Science in Information Technology</p>
-                <span>with Specialization in Business Analytics</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+<section id="about" class="py-24 px-5 bg-sf/60"><div class="mx-auto max-w-6xl">
+ <h2 class="font-serif text-4xl md:text-6xl font-medium">The person behind the pixels</h2>
+ <div id="tabs" class="relative inline-flex max-w-full overflow-x-auto no-sb mt-8 p-1.5 rounded-xl bg-card border border-fg/10"><span id="pill"></span><button data-t="about">About Me</button><button data-t="skills">Skills</button><button data-t="experience">Experience</button><button data-t="education">Education</button></div>
+ <div class="mt-10 rv">
+  <div class="pn" id="p-about"><div class="card grid md:grid-cols-5 overflow-hidden"><div class="md:col-span-2 relative min-h-72 bg-gradient-to-br from-soft to-sf grid place-items-center"><i class="ms text-8xl text-ac/40">person</i><img src="assets/img/sablay-wthbg.png" alt="Guen Zandrave" class="absolute inset-0 w-full h-full object-cover" onerror="this.remove()"></div>
+   <div class="md:col-span-3 p-8 md:p-12"><h3 class="font-serif text-3xl md:text-4xl font-medium">Hey, I'm Guen Zandra Tiongson Ocba.</h3><p class="mt-5 opacity-80 leading-relaxed max-w-prose">Guen works just fine. I started out writing code, then kept wandering into other crafts: cutting videos, designing graphics and recording voice overs. Hopping between them keeps my ideas fresh, and it means one person can build your site, design its look, edit the promo and narrate it too. I learn by doing, and I like projects where nobody says "that's not how it's done."</p>
+    <div class="grid grid-cols-3 gap-4 mt-8 pt-6 border-t border-fg/10"><div><b class="font-serif text-5xl text-ac" data-n="5">0</b><span class="font-serif text-3xl text-ac">+</span><p class="text-xs opacity-60 mt-1">Years creating</p></div><div><b class="font-serif text-5xl text-ac" data-n="50">0</b><span class="font-serif text-3xl text-ac">+</span><p class="text-xs opacity-60 mt-1">Projects shipped</p></div><div><b class="font-serif text-5xl text-ac" data-n="5">0</b><p class="text-xs opacity-60 mt-1">Crafts, one person</p></div></div></div></div></div>
+  <div class="pn" id="p-skills" hidden></div><div class="pn" id="p-experience" hidden></div>
+  <div class="pn" id="p-education" hidden><div class="card grid md:grid-cols-2 overflow-hidden"><div class="relative min-h-64 bg-gradient-to-br from-sf to-soft grid place-items-center"><i class="ms text-8xl text-ac/50">school</i><img src="assets/img/laguna-university.jpg" alt="University campus" class="absolute inset-0 w-full h-full object-cover" onerror="this.remove()"></div><div class="p-8 md:p-12"><span class="chip">2021 to 2026</span><h3 class="font-serif text-4xl font-medium mt-4">Laguna University</h3><p class="text-ac font-semibold mt-1">Bachelor of Science in Information Technology</p><span>with Specialization in Business Analytics</span></div></div></div>
+ </div></div></section>
 
-    <section id="projects" class="py-24 px-5">
-      <div class="mx-auto max-w-6xl rv">
-        <div class="flex flex-wrap items-end justify-between gap-6">
-          <h2 class="font-serif text-4xl md:text-6xl font-medium">Selected work</h2>
-          <div id="flt" class="flex flex-wrap gap-2"></div>
-        </div>
-        <div id="pj" class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 mt-12"></div>
-      </div>
-    </section>
+<section id="contact" class="px-5 py-24"><div class="mx-auto max-w-6xl rounded-2xl overflow-hidden grid lg:grid-cols-5 border border-fg/10 rv">
+ <div class="lg:col-span-2 relative bg-[#14100f] text-[#f5eee8] p-8 md:p-12 overflow-hidden"><div class="absolute -bottom-24 -right-24 w-80 h-80 rounded-full bg-ac/40 blur-3xl"></div><div class="relative"><h2 class="font-serif text-4xl md:text-5xl font-medium leading-[1.05]">Have an idea? Let's build it.</h2><p class="opacity-70 mt-4 text-sm max-w-xs">Tell me what you're making and I'll reply within a day or two.</p>
+  <div class="mt-8 flex flex-col gap-4 text-sm"><div class="flex items-center gap-3"><i class="ms text-[#d6b88c]">mail</i><span id="em"></span></div><div class="flex items-center gap-3"><i class="ms text-[#d6b88c]">schedule</i>Replies within 1 to 2 days</div><div class="flex items-center gap-3"><i class="ms text-[#d6b88c]">work</i>Open to freelance and full-time roles</div></div>
+  <button id="cp" class="btn mt-8 bg-[#f5eee8] text-[#14100f] hover:bg-[#d6b88c]"><i class="ms">content_copy</i>Copy email</button></div></div>
+ <form id="cf" class="lg:col-span-3 bg-card/80 p-8 md:p-12 flex flex-col gap-5"><div class="grid sm:grid-cols-2 gap-5"><input required placeholder="Your name" class="fi"><input required type="email" placeholder="Your email" class="fi"></div><div><p class="text-sm opacity-70 mb-2">I'm interested in</p><div id="ci" class="flex flex-wrap gap-2"></div></div><textarea required rows="4" placeholder="Tell me about your project" class="fi resize-none"></textarea><button class="btn bp w-fit">Send message<i class="ms">send</i></button></form>
+</div></section>
+</main>
+<script>
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)],root=document.documentElement,U=[],H=(s,h)=>{const e=$(s);if(e)e.innerHTML=h};
+const GH='guenzandra',EMAIL='hello@example.com',HOME='';
+const NAV=[['index','Home'],['reviews','Reviews'],['projects','Projects'],['services','Services'],['about','About'],['contact','Contact']];
+const F=[['Code','app.js','Web & software','Full stack builds with clean, fast, responsive code.','Web'],['Cut','timeline.mov','Video editing','Reels, promos and stories, paced and captioned to hold attention.','Video'],['Craft','brand.fig','Graphic design','Logos, posters and social kits with a clear point of view.','Design'],['Voice','voice.wav','Voice over','Warm, expressive narration for ads, audiobooks and characters.','Voice']];
+const SV=[['code','Web Development','Fast, responsive websites and web apps.','Landing pages, web apps, CMS builds, redesigns'],['movie','Video Editing','Cuts, color, captions and motion titles.','Reels, YouTube, promos, captions'],['terminal','Software Development','Tools that solve real problems, end to end.','Desktop apps, APIs, automation'],['palette','Graphic Designing','Brand looks, posters and social kits.','Logos, posters, social templates'],['mic','Voice Over Acting','A warm, expressive voice for your story.','Narration, ad reads, characters']];
+const SK=[['stars','Skills',['Video Editing','Graphic Design','Web Development','Software Development','Voice Over Acting']],['code','Technical Skills',['HTML/CSS','PHP','JavaScript','Python','Adobe Creative Suite','CapCut Pro']],['layers','Frameworks',['React','Vue.js','Node.js','Laravel']],['database','Databases',['MySQL','PostgreSQL','MongoDB','SQLite','Firebase','Supabase']],['favorite','Soft Skills',['Communication','Teamwork','Problem Solving','Time Management']],['translate','Languages',['English','Filipino']]];
+const EX=[['Web Developer','Studio Name','#','2024 to now','Built responsive sites and dashboards with PHP, Laravel and JavaScript.'],['Video Editor','Agency Name','#','2023 to 2024','Edited reels, promos and long-form videos with captions and motion titles.'],['Graphic Designer','Brand Name','#','2022 to 2023','Designed logos, posters and social kits for local brands.'],['Voice Over Artist','Freelance','#','2022 to now','Recorded narration, ad reads and character voices for creators.'],['Software Developer','Company Name','#','2021 to 2022','Shipped internal tools and APIs with Python and Node.js.'],['IT Intern','Company Name','#','2020 to 2021','Supported QA, databases and front-end tasks on a small product team.']];
+/* [slug,title,category,icon,description,tech,client,date]. Media: images/projects/<slug>-1.jpg, -2.jpg, videos/<slug>.mp4 */
+const PJ=[['bloom','Bloom Boutique','Web','storefront','A refined online shop with cart, checkout and a stock admin panel.',['PHP','Laravel','MySQL'],'Bloom Boutique','Mar 2025'],['lumen','Lumen Reel','Video','movie','A travel reel with a custom color grade, captions and motion titles.',['Premiere','After Effects'],'Lumen Studio','Jan 2025'],['petal','Petal Brand Kit','Design','palette','Logo, palette and social templates for a local florist.',['Illustrator','Photoshop'],'Petal Co.','Nov 2024'],['echo','Echo Narrations','Voice','mic','Audiobook samples and ad reads in a warm, easy tone.',['Audition','Studio mic'],'Echo Audio','Aug 2024'],['tasknest','TaskNest','Software','terminal','A desktop task manager with offline sync and reminders.',['Python','SQLite'],'TaskNest','May 2024'],['pulse','Pulse Dashboard','Web','monitoring','A realtime analytics dashboard with charts and dark mode.',['React','Node.js','Firebase'],'Pulse Analytics','Feb 2024'],['nova','Nova Cafe Site','Web','coffee','Menu, online ordering and a booking page for a neighborhood cafe.',['HTML/CSS','JavaScript','PHP'],'Nova Cafe','Dec 2023'],['spark','Spark Promo Cut','Video','bolt','A 30-second launch promo with kinetic type and sound design.',['CapCut Pro','After Effects'],'Spark Labs','Oct 2023']];
+/* [name,role,text,rating,date]. Photos: images/clients/<firstname>.jpg */
+const RV=[['Maria Santos','Owner, Bloom Boutique','Guen rebuilt our shop in three weeks and cut the launch video too. Sales doubled and every detail felt considered.',5,'Aug 2026'],['Daniel Reyes','Founder, Lumen Studio','Fast, clear and genuinely creative. The edit, the site and the voice over all felt like one brand.',5,'May 2026'],['Ana Lim','Marketing Lead, Petal Co.','A great communicator who delivers early. Our social kit and promo reel got the best engagement we have had.',5,'Feb 2026'],['Paolo Cruz','Product Manager, TaskNest','Solid engineering and a sharp eye for design. Would happily work together again.',4,'Nov 2025']];
+const SO=[['GitHub','https://github.com/guenzandra','fa-github'],['LinkedIn','https://www.linkedin.com/in/guenzandra-dev','fa-linkedin-in'],['Instagram','https://www.instagram.com/guenzandra/','fa-instagram'],['Facebook','https://www.facebook.com/gwennzandra','fa-facebook-f'],['TikTok','https://www.tiktok.com/@itszandrave','fa-tiktok']];
+const T=['React','Laravel','Node.js','Python','PostgreSQL','Premiere Pro','After Effects','Photoshop','Illustrator','Audition'];
 
-    <section id="reviews" class="py-24 px-5 bg-sf/60">
-      <div class="mx-auto max-w-6xl rv">
-        <h2 class="font-serif text-4xl md:text-6xl font-medium mb-10">Kind words from clients</h2>
-        <div id="rvw"></div>
-      </div>
-    </section>
+/* shared chrome: header, modal, toasts, footer */
+const nav=NAV.map(n=>`<a href="${HOME}#${n[0]}" class="hover:text-ac">${n[1]}</a>`).join('');
+document.body.insertAdjacentHTML('afterbegin',`<div id="sp" class="fixed top-0 left-0 h-0.5 bg-ac z-[90]"></div><div id="toasts" class="fixed bottom-6 inset-x-0 z-[70] flex flex-col items-center gap-2 pointer-events-none px-4"></div><div id="md" class="fixed inset-0 z-[80] hidden place-items-center p-4 bg-black/60 backdrop-blur-sm"><div id="mb" class="card relative w-full max-h-[90vh] overflow-auto p-6 md:p-8 fade"></div></div><header class="fixed top-3 inset-x-3 md:inset-x-6 z-40"><div class="mx-auto max-w-6xl flex items-center justify-between rounded-xl bg-card/75 backdrop-blur-xl border border-fg/10 px-3 py-2"><nav class="hidden lg:flex items-center gap-7 text-sm font-medium pl-3">${nav}</nav><div class="flex items-center gap-1.5 ml-auto"><button id="theme" aria-label="Toggle dark mode" class="w-10 h-10 rounded-lg grid place-items-center hover:bg-soft"><i class="ms">dark_mode</i></button><a href="${HOME}#contact" class="btn bp hidden sm:inline-flex">Let's Connect</a><button id="burger" aria-label="Menu" class="lg:hidden w-10 h-10 rounded-lg grid place-items-center hover:bg-soft"><i class="ms">menu</i></button></div></div><div id="mob" class="hidden mt-2 rounded-xl bg-card border border-fg/10 p-5 flex-col gap-4 lg:hidden font-medium">${nav}</div></header>`);
+document.body.insertAdjacentHTML('beforeend',`<footer class="border-t border-fg/10 px-5 pt-14 pb-8"><div class="mx-auto max-w-6xl grid gap-10 md:grid-cols-4"><div class="md:col-span-2"><p class="font-serif text-2xl max-w-sm leading-snug">Full Stack Developer &amp; Video Editor who also designs and voices stories.</p></div><div><p class="font-serif text-lg mb-4">Explore</p><div class="flex flex-col gap-2 text-sm opacity-80">${nav}</div></div><div><p class="font-serif text-lg mb-4">Connect</p><div class="flex flex-wrap gap-2">${SO.map(s=>`<a href="${s[1]}" target="_blank" rel="noopener" aria-label="${s[0]}" title="${s[0]}" class="soc"><i class="fa-brands ${s[2]}"></i></a>`).join('')}</div></div></div><div class="mx-auto max-w-6xl flex flex-wrap items-center justify-between gap-3 mt-12 pt-6 border-t border-fg/10 text-xs opacity-60"><span>&copy; ${new Date().getFullYear()} Guen Zandrave. Code, cut, craft and voice.</span><a href="#index" onclick="scrollTo({top:0,behavior:'smooth'});return false" class="inline-flex items-center gap-1 hover:text-ac">Back to top<i class="ms">arrow_upward</i></a></div></footer>`);
 
-    <section class="py-24 px-5">
-      <div class="mx-auto max-w-6xl rv">
-        <div class="flex flex-wrap items-end justify-between gap-4">
-          <h2 class="font-serif text-4xl md:text-6xl font-medium">My code, day by day</h2><a id="ghl" target="_blank"
-            rel="noopener" class="btn bo">View GitHub<i class="ms">north_east</i></a>
-        </div>
-        <div class="card p-6 md:p-8 mt-10">
-          <div class="overflow-x-auto pb-2 no-sb">
-            <div id="gh"></div>
-          </div>
-          <p id="ghn" class="text-xs opacity-60 mt-4">Showing sample data until your live graph loads.</p>
-        </div>
-      </div>
-    </section>
+try{if(localStorage.th?localStorage.th=='d':matchMedia('(prefers-color-scheme:dark)').matches)root.classList.add('dark')}catch(e){}
+const ti=()=>$('#theme i').textContent=root.classList.contains('dark')?'light_mode':'dark_mode';ti();
+$('#theme').onclick=()=>{root.classList.toggle('dark');const d=root.classList.contains('dark');try{localStorage.th=d?'d':'l'}catch(e){}ti();toast(d?'Dark mode on':'Light mode on',d?'dark_mode':'light_mode')};
+$('#burger').onclick=()=>{$('#mob').classList.toggle('hidden');$('#mob').classList.toggle('flex')};
+$$('#mob a').forEach(a=>a.addEventListener('click',()=>$('#burger').click()));
+function toast(m,i='check_circle'){const t=document.createElement('div');t.className='toast card px-5 py-3 flex items-center gap-2 text-sm font-medium shadow-xl';t.innerHTML=`<i class="ms text-ac">${i}</i>${m}`;$('#toasts').append(t);setTimeout(()=>t.classList.add('out'),2600);setTimeout(()=>t.remove(),3100)}
+function modal(h,w){$('#mb').style.maxWidth=w?'64rem':'32rem';$('#mb').innerHTML=`<button aria-label="Close" class="absolute top-4 right-4 z-10 w-9 h-9 rounded-lg grid place-items-center hover:bg-soft" onclick="closeM()"><i class="ms">close</i></button><div class="pt-6 md:pt-0">${h}</div>`;$('#md').classList.replace('hidden','grid');document.body.style.overflow='hidden'}
+function closeM(){$('#md').classList.replace('grid','hidden');document.body.style.overflow='';const v=$('#mv video');v&&v.pause()}
+$('#md').onclick=e=>{if(e.target.id=='md')closeM()};addEventListener('keydown',e=>e.key=='Escape'&&closeM());
 
-    <section id="contact" class="px-5 pb-24">
-      <div class="mx-auto max-w-6xl rounded-2xl overflow-hidden grid lg:grid-cols-5 border border-fg/10 rv">
-        <div class="lg:col-span-2 relative bg-[#14100f] text-[#f5eee8] p-8 md:p-12 overflow-hidden">
-          <div class="absolute -bottom-24 -right-24 w-80 h-80 rounded-full bg-ac/40 blur-3xl"></div>
-          <div class="relative">
-            <h2 class="font-serif text-4xl md:text-5xl font-medium leading-[1.05]">Have an idea? Let's build it.</h2>
-            <p class="opacity-70 mt-4 text-sm max-w-xs">Tell me what you're making and I'll reply within a day or two.
-            </p>
-            <div class="mt-8 flex flex-col gap-4 text-sm">
-              <div class="flex items-center gap-3"><i class="ms text-[#d6b88c]">mail</i><span id="em"></span></div>
-              <div class="flex items-center gap-3"><i class="ms text-[#d6b88c]">schedule</i>Replies within 1 to 2 days
-              </div>
-              <div class="flex items-center gap-3"><i class="ms text-[#d6b88c]">work</i>Open to freelance and full-time
-                roles</div>
-            </div>
-            <button id="cp" class="btn mt-8 bg-[#f5eee8] text-[#14100f] hover:bg-[#d6b88c]"><i
-                class="ms">content_copy</i>Copy email</button>
-          </div>
-        </div>
-        <form id="cf" class="lg:col-span-3 bg-card/80 p-8 md:p-12 flex flex-col gap-5">
-          <div class="grid sm:grid-cols-2 gap-5"><input required placeholder="Your name" class="fi"><input required
-              type="email" placeholder="Your email" class="fi"></div>
-          <div>
-            <p class="text-sm opacity-70 mb-2">I'm interested in</p>
-            <div id="ci" class="flex flex-wrap gap-2"></div>
-          </div>
-          <textarea required rows="4" placeholder="Tell me about your project" class="fi resize-none"></textarea><button
-            class="btn bp w-fit">Send message<i class="ms">send</i></button>
-        </form>
-      </div>
-    </section>
-  </main>
+/* drag-to-scroll (mouse) + native swipe (touch), no scrollbar */
+function drag(s){let d,x,l,m;s.classList.add('drag','no-sb');s.addEventListener('dragstart',e=>e.preventDefault());
+s.addEventListener('pointerdown',e=>{if(e.pointerType!='mouse'||e.button)return;d=1;m=0;x=e.clientX;l=s.scrollLeft});
+addEventListener('pointermove',e=>{if(!d)return;const dx=e.clientX-x;if(Math.abs(dx)>4){m=1;s.classList.add('go')}s.scrollLeft=l-dx});
+addEventListener('pointerup',()=>{if(!d)return;d=0;s.classList.remove('go')});
+s.addEventListener('click',e=>{if(m){e.preventDefault();e.stopPropagation();m=0}},true)}
+function sc(box,items,r){if(!box)return;box.innerHTML=`<div class="flex items-center justify-between mb-5"><span class="text-xs opacity-60 flex items-center gap-2"><i class="ms">swipe</i>Drag, swipe or use the arrows</span><div class="flex gap-2"><button class="ab" aria-label="Previous"><i class="ms">arrow_back</i></button><button class="ab" aria-label="Next"><i class="ms">arrow_forward</i></button></div></div><div class="flex gap-4 overflow-x-auto no-sb pb-1">${items.map(r).join('')}</div><div class="h-0.5 bg-fg/10 mt-5 rounded relative"><div class="absolute h-full bg-ac rounded"></div></div>`;
+const s=box.children[1],[a,b]=box.querySelectorAll('.ab'),t=box.lastChild.firstChild;
+const u=()=>{const w=s.scrollWidth,c=s.clientWidth;if(!w)return;t.style.width=c/w*100+'%';t.style.left=s.scrollLeft/w*100+'%';a.disabled=s.scrollLeft<4;b.disabled=w-c-s.scrollLeft<4};
+a.onclick=()=>s.scrollBy({left:-s.clientWidth*.8,behavior:'smooth'});b.onclick=()=>s.scrollBy({left:s.clientWidth*.8,behavior:'smooth'});s.addEventListener('scroll',u);U.push(u);u();drag(s);return s}
+function auto(s){if(!s||matchMedia('(prefers-reduced-motion:reduce)').matches)return;let p=0;['mouseenter','touchstart','focusin'].forEach(v=>s.addEventListener(v,()=>p=1));s.addEventListener('mouseleave',()=>p=0);setInterval(()=>{if(p||s.classList.contains('go'))return;const e=s.scrollWidth-s.clientWidth;s.scrollBy({left:s.scrollLeft>=e-4?-e:s.firstElementChild.offsetWidth+16,behavior:'smooth'})},4500)}
 
-  <footer class="border-t border-fg/10 px-5 pt-14 pb-8">
-    <div class="mx-auto max-w-6xl grid gap-10 md:grid-cols-4">
-      <div class="md:col-span-2">
-        <p class="font-serif text-2xl max-w-sm leading-snug">Full Stack Developer &amp; Video Editor who also designs
-          and voices stories.</p>
-      </div>
-      <div>
-        <p class="font-serif text-lg mb-4">Explore</p>
-        <div class="flex flex-col gap-2 text-sm opacity-80"><a href="#craft" class="hover:text-ac">Craft</a><a
-            href="#about" class="hover:text-ac">About</a><a href="#projects" class="hover:text-ac">Projects</a><a
-            href="#reviews" class="hover:text-ac">Reviews</a><a href="#contact" class="hover:text-ac">Contact</a></div>
-      </div>
-      <div>
-        <p class="font-serif text-lg mb-4">Connect</p>
-        <div id="soc" class="flex flex-wrap gap-2"></div>
-      </div>
-    </div>
-    <div
-      class="mx-auto max-w-6xl flex flex-wrap items-center justify-between gap-3 mt-12 pt-6 border-t border-fg/10 text-xs opacity-60">
-      <span>&copy; <span id="yr"></span> Guen Zandrave. Code, cut, craft and voice.</span><a href="#index"
-        class="inline-flex items-center gap-1 hover:text-ac">Back to top<i class="ms">arrow_upward</i></a></div>
-  </footer>
+/* hero: crafts showcase */
+let cur=0,tm;
+function pick(i,s){cur=i;s&&clearInterval(tm);$$('.row').forEach((b,k)=>b.classList.toggle('on',k==i));$$('.pane').forEach((b,k)=>b.classList.toggle('on',k==i));$('#ftt').textContent=F[i][1];$('#fd').textContent=F[i][3]}
+if($('#fwl')){
+ const wave=Array.from({length:28},(_,i)=>`<i style="--i:${i}"></i>`).join('');
+ const PN=[`<pre class="code"><span class="d">// idea to production</span>\n<b class="k">const</b> app = <b class="k">await</b> build({\n  stack: <b class="s">["Laravel","React"]</b>,\n  fast: <b class="k">true</b>\n});\ndeploy(app); <span class="d">// shipped</span></pre>`,
+ `<div class="h-16 rounded-md border border-fg/10 bg-gradient-to-br from-soft to-sf grid place-items-center"><i class="ms text-3xl text-ac">play_circle</i></div><div class="relative flex flex-col gap-1.5 mt-4"><div class="tr"><i style="left:0;width:32%"></i><i style="left:36%;width:24%"></i><i style="left:64%;width:30%"></i></div><div class="tr"><i style="left:8%;width:40%"></i><i style="left:52%;width:36%"></i></div><span class="ph"></span></div>`,
+ `<div class="flex gap-1.5"><span class="sw bg-ac"></span><span class="sw bg-gd"></span><span class="sw bg-soft border border-fg/10"></span><span class="sw bg-fg"></span></div><p class="font-serif text-4xl mt-3 leading-none">Aa <i class="text-ac">Bb</i></p><div class="flex gap-1.5 mt-3"><span class="chip">Logo</span><span class="chip">Poster</span><span class="chip">Kit</span></div>`,
+ `<div class="flex justify-between font-mono text-[11px] opacity-60"><span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-ac a1"></span>REC</span><span>00:12 / 00:30</span></div><div class="wv mt-2">${wave}</div>`];
+ H('#pn',PN.map(p=>`<div class="pane">${p}</div>`).join(''));
+ H('#fwl',F.map((f,i)=>`<button class="row" onmouseenter="pick(${i},1)" onfocus="pick(${i},1)" onclick="pick(${i},1)"><b>${f[0]}.</b><small>${f[2]}</small></button>`).join(''));
+ $('#fr').onclick=()=>{flt(F[cur][4]);location.hash='projects'};
+ pick(0);if(!matchMedia('(prefers-reduced-motion:reduce)').matches)tm=setInterval(()=>pick((cur+1)%4),4200);
+ const t=$('#tilt'),w=t.parentElement;w.addEventListener('pointermove',e=>{const r=t.getBoundingClientRect();t.style.setProperty('--ry',((e.clientX-r.left)/r.width-.5)*10+'deg');t.style.setProperty('--rx',(.5-(e.clientY-r.top)/r.height)*8+'deg')});w.addEventListener('pointerleave',()=>{t.style.setProperty('--ry','0deg');t.style.setProperty('--rx','0deg')});
+ H('#mq',[...T,...T].map(t=>`<span class="flex items-center gap-8 pr-8">${t}<span class="w-1.5 h-1.5 rounded-full bg-ac"></span></span>`).join(''));
+}
+addEventListener('pointermove',e=>{const c=e.target.closest&&e.target.closest('.spot');if(c){const r=c.getBoundingClientRect();c.style.setProperty('--mx',e.clientX-r.left+'px');c.style.setProperty('--my',e.clientY-r.top+'px')}});
 
-  <script>
-    const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)], root = document.documentElement, U = [];
-    const GH = 'guenzandra', EMAIL = 'hello@example.com';
-    const F = [['Code', 'app.js', 'Web and software development', 'Full stack builds with clean, fast, responsive code, from landing pages to dashboards and APIs.', 'Web'], ['Cut', 'timeline.mov', 'Video editing', 'Reels, promos and long-form stories, paced, graded and captioned to hold attention.', 'Video'], ['Craft', 'brand.fig', 'Graphic design', 'Logos, posters and social kits with a clear point of view and a consistent system.', 'Design'], ['Voice', 'voice.wav', 'Voice over acting', 'Warm, expressive narration for ads, explainers, audiobooks and characters.', 'Voice']];
-    const SV = [['code', 'Web Development', 'Fast, responsive websites and web apps.', 'Landing pages, web apps, CMS builds, redesigns'], ['movie', 'Video Editing', 'Cuts, color, captions and motion titles.', 'Reels, YouTube, promos, captions'], ['terminal', 'Software Development', 'Tools that solve real problems, end to end.', 'Desktop apps, APIs, automation'], ['palette', 'Graphic Designing', 'Brand looks, posters and social kits.', 'Logos, posters, social templates'], ['mic', 'Voice Over Acting', 'A warm, expressive voice for your story.', 'Narration, ad reads, characters']];
-    const SK = [['stars', 'Skills', ['Video Editing', 'Graphic Design', 'Web Development', 'Software Development', 'Voice Over Acting']], ['code', 'Technical Skills', ['HTML/CSS', 'PHP', 'JavaScript', 'Python', 'Adobe Creative Suite', 'CapCut Pro']], ['layers', 'Frameworks', ['React', 'Vue.js', 'Node.js', 'Laravel']], ['database', 'Databases', ['MySQL', 'PostgreSQL', 'MongoDB', 'SQLite', 'Firebase', 'Supabase']], ['favorite', 'Soft Skills', ['Communication', 'Teamwork', 'Problem Solving', 'Time Management']], ['translate', 'Languages', ['English', 'Filipino']]];
-    const EX = [['Web Developer', 'Studio Name', '#', '2024 to now', 'Built responsive sites and dashboards with PHP, Laravel and JavaScript.'], ['Video Editor', 'Agency Name', '#', '2023 to 2024', 'Edited reels, promos and long-form videos with captions and motion titles.'], ['Graphic Designer', 'Brand Name', '#', '2022 to 2023', 'Designed logos, posters and social kits for local brands.'], ['Voice Over Artist', 'Freelance', '#', '2022 to now', 'Recorded narration, ad reads and character voices for creators.'], ['Software Developer', 'Company Name', '#', '2021 to 2022', 'Shipped internal tools and APIs with Python and Node.js.'], ['IT Intern', 'Company Name', '#', '2020 to 2021', 'Supported QA, databases and front-end tasks on a small product team.']];
-    /* [slug, title, category, icon, description, tech, client, date]. Media: images/projects/<slug>-1.jpg, <slug>-2.jpg, videos/<slug>.mp4 */
-    const PJ = [['bloom', 'Bloom Boutique', 'Web', 'storefront', 'A refined online shop with cart, checkout and a stock admin panel.', ['PHP', 'Laravel', 'MySQL'], 'Bloom Boutique', 'Mar 2025'], ['lumen', 'Lumen Reel', 'Video', 'movie', 'A travel reel with a custom color grade, captions and motion titles.', ['Premiere', 'After Effects'], 'Lumen Studio', 'Jan 2025'], ['petal', 'Petal Brand Kit', 'Design', 'palette', 'Logo, palette and social templates for a local florist.', ['Illustrator', 'Photoshop'], 'Petal Co.', 'Nov 2024'], ['echo', 'Echo Narrations', 'Voice', 'mic', 'Audiobook samples and ad reads in a warm, easy tone.', ['Audition', 'Studio mic'], 'Echo Audio', 'Aug 2024'], ['tasknest', 'TaskNest', 'Software', 'terminal', 'A desktop task manager with offline sync and reminders.', ['Python', 'SQLite'], 'TaskNest', 'May 2024'], ['pulse', 'Pulse Dashboard', 'Web', 'monitoring', 'A realtime analytics dashboard with charts and dark mode.', ['React', 'Node.js', 'Firebase'], 'Pulse Analytics', 'Feb 2024']];
-    /* [name, role, text, rating, date]. Photos: images/clients/<firstname>.jpg */
-    const RV = [['Maria Santos', 'Owner, Bloom Boutique', 'Guen rebuilt our shop in three weeks and cut the launch video too. Sales doubled and every detail felt considered.', 5, 'Aug 2026'], ['Daniel Reyes', 'Founder, Lumen Studio', 'Fast, clear and genuinely creative. The edit, the site and the voice over all felt like one brand.', 5, 'May 2026'], ['Ana Lim', 'Marketing Lead, Petal Co.', 'A great communicator who delivers early. Our social kit and promo reel got the best engagement we have had.', 5, 'Feb 2026'], ['Paolo Cruz', 'Product Manager, TaskNest', 'Solid engineering and a sharp eye for design. Would happily work together again.', 4, 'Nov 2025']];
-    const SO = [['GitHub', 'https://github.com/guenzandra'], ['LinkedIn', 'https://www.linkedin.com/in/guenzandra-dev'], ['Instagram', 'https://www.instagram.com/guenzandra/'], ['Facebook', 'https://www.facebook.com/gwennzandra'], ['TikTok', 'https://www.tiktok.com/@itszandrave']];
-    const T = ['React', 'Laravel', 'Node.js', 'Python', 'PostgreSQL', 'Premiere Pro', 'After Effects', 'Photoshop', 'Illustrator', 'Audition'];
+/* testimonials */
+H('#avg',(RV.reduce((a,r)=>a+r[3],0)/RV.length).toFixed(1));H('#avn',`from ${RV.length} client reviews`);
+auto(sc($('#rvw'),RV,r=>`<figure class="card p-7 min-w-[290px] md:min-w-[420px] shrink-0 snap-start select-none flex flex-col"><span class="font-serif text-6xl leading-none text-gd h-8">&ldquo;</span><div class="text-gd tracking-widest mt-2">${'&#9733;'.repeat(r[3])+'&#9734;'.repeat(5-r[3])}</div><blockquote class="mt-3 text-lg leading-relaxed flex-1">${r[2]}</blockquote><figcaption class="flex items-center gap-3 mt-6 pt-5 border-t border-fg/10"><div class="relative w-12 h-12 rounded-full bg-soft text-ac font-semibold grid place-items-center overflow-hidden shrink-0">${r[0].split(' ').map(w=>w[0]).join('')}<img src="images/clients/${r[0].split(' ')[0].toLowerCase()}.jpg" alt="${r[0]}" draggable="false" class="absolute inset-0 w-full h-full object-cover" onerror="this.remove()"></div><div class="flex-1"><b class="block text-sm">${r[0]}</b><span class="text-xs opacity-60">${r[1]}</span></div><span class="text-xs opacity-60">${r[4]}</span></figcaption></figure>`));
 
-    /* loader */
-    (() => { const L = ['<span class="opacity-50">// initializing portfolio</span>', '<span class="text-ac">const</span> dev = <span class="text-gd">"Guen Zandrave"</span>;', '<span class="text-ac">await</span> load(["code", "cut", "craft", "voice"]);', '<span class="text-ac">&#10003;</span> compiled. Hello, World!']; let i = 0; const p = $('#lt'), t = setInterval(() => { p.innerHTML += (i ? '\n' : '') + L[i++] + (i < L.length ? '' : '<span class="caret">&#9611;</span>'); i >= L.length && clearInterval(t) }, 420) })();
+/* projects: home shows 6, "View more" opens projects.html */
+let LM=0;
+function flt(c,l){if(l!==undefined)LM=l;c=c||'All';const L=PJ.map((p,i)=>[p,i]).filter(([p])=>c=='All'||p[2]==c),S=LM?L.slice(0,LM):L;
+H('#flt',['All','Web','Video','Design','Voice','Software'].map(x=>`<button onclick="flt('${x}')" class="chip ${x==c?'on':''}">${x}</button>`).join(''));
+H('#pj',S.map(([p,i])=>`<button onclick="prj(${i})" class="card lift text-left overflow-hidden group"><div class="relative h-44 grid place-items-center bg-gradient-to-br from-soft to-sf"><i class="ms text-5xl text-ac/70 group-hover:scale-125 transition">${p[3]}</i><img src="images/projects/${p[0]}-1.jpg" alt="${p[1]}" class="absolute inset-0 w-full h-full object-cover" onerror="this.remove()"></div><div class="p-6"><div class="flex justify-between items-center"><span class="chip">${p[2]}</span><span class="text-xs opacity-50">${p[7]}</span></div><h3 class="font-serif text-2xl font-medium mt-3">${p[1]}</h3><p class="text-sm opacity-70 mt-1">${p[4]}</p></div></button>`).join('')||'<p class="opacity-60">Nothing here yet.</p>');
+H('#more',LM&&PJ.length>LM?`<a href="#/projects${c!='All'?'/'+c:''}" class="btn bp">View more projects<i class="ms">arrow_forward</i></a>`:'');H('#cnt',LM?'':L.length)}
+function prj(i){const p=PJ[i],m=[`images/projects/${p[0]}-1.jpg`,`images/projects/${p[0]}-2.jpg`,`videos/${p[0]}.mp4`],v=s=>s.endsWith('.mp4'),ph=ic=>`<div class="absolute inset-0 grid place-items-center bg-gradient-to-br from-soft to-sf"><i class="ms text-5xl text-ac/60">${ic}</i></div>`;
+window.sh=k=>{$('#mv').innerHTML=ph(v(m[k])?'play_circle':p[3])+(v(m[k])?`<video src="${m[k]}" controls autoplay muted class="absolute inset-0 w-full h-full object-cover bg-black" onerror="this.remove()"></video>`:`<img src="${m[k]}" alt="${p[1]}" class="absolute inset-0 w-full h-full object-cover" onerror="this.remove()">`);$$('.th').forEach((t,j)=>t.classList.toggle('on',j==k))};
+modal(`<div class="grid md:grid-cols-5 gap-8"><div class="md:col-span-3"><div id="mv" class="relative aspect-video rounded-lg overflow-hidden border border-fg/10"></div><div class="grid grid-cols-3 gap-3 mt-3">${m.map((s,k)=>`<button onclick="sh(${k})" class="th relative aspect-video rounded-md overflow-hidden border border-fg/10 opacity-60 hover:opacity-100 transition">${ph(v(s)?'play_arrow':'image')}${v(s)?'':`<img src="${s}" alt="" class="absolute inset-0 w-full h-full object-cover" onerror="this.remove()">`}</button>`).join('')}</div></div><div class="md:col-span-2"><span class="chip">${p[2]}</span><h3 class="font-serif text-4xl font-medium mt-3 leading-tight">${p[1]}</h3><p class="opacity-75 mt-3 text-sm leading-relaxed">${p[4]}</p><dl class="mt-6 text-sm divide-y divide-fg/10 border-y border-fg/10"><div class="flex justify-between py-3"><dt class="opacity-60">Client</dt><dd class="font-semibold">${p[6]}</dd></div><div class="flex justify-between py-3"><dt class="opacity-60">Date</dt><dd class="font-semibold">${p[7]}</dd></div></dl><p class="text-sm opacity-60 mt-5">Technologies</p><div class="flex flex-wrap gap-2 mt-2">${p[5].map(t=>`<span class="chip">${t}</span>`).join('')}</div><div class="flex gap-3 mt-7"><a href="#" class="btn bp">Live demo</a><a href="#" class="btn bo">Source code</a></div></div></div>`,1);sh(0)}
 
-    /* theme + menu */
-    try { if (localStorage.th ? localStorage.th == 'd' : matchMedia('(prefers-color-scheme:dark)').matches) root.classList.add('dark') } catch (e) { }
-    const ti = () => $('#theme i').textContent = root.classList.contains('dark') ? 'light_mode' : 'dark_mode'; ti();
-    $('#theme').onclick = () => { root.classList.toggle('dark'); const d = root.classList.contains('dark'); try { localStorage.th = d ? 'd' : 'l' } catch (e) { } ti(); toast(d ? 'Dark mode on' : 'Light mode on', d ? 'dark_mode' : 'light_mode') };
-    $('#burger').onclick = () => { $('#mob').classList.toggle('hidden'); $('#mob').classList.toggle('flex') };
-    $$('#mob a').forEach(a => a.addEventListener('click', () => $('#burger').click()));
+/* services bento */
+H('#svl',SV.map((s,i)=>`<div class="card spot lift p-7 flex flex-col ${i<2?'md:col-span-3':'md:col-span-2'}"><div class="w-12 h-12 rounded-xl bg-soft text-ac grid place-items-center"><i class="ms">${s[0]}</i></div><h3 class="font-serif text-2xl font-medium mt-8">${s[1]}</h3><p class="text-sm opacity-75 mt-2">${s[2]}</p><p class="text-xs text-ac font-semibold mt-auto pt-5">${s[3]}</p></div>`).join(''));
 
-    /* toast + modal */
-    function toast(m, i = 'check_circle') { const t = document.createElement('div'); t.className = 'toast card px-5 py-3 flex items-center gap-2 text-sm font-medium shadow-xl'; t.innerHTML = `<i class="ms text-ac">${i}</i>${m}`; $('#toasts').append(t); setTimeout(() => t.classList.add('out'), 2600); setTimeout(() => t.remove(), 3100) }
-    function modal(h, w) { $('#mb').style.maxWidth = w ? '64rem' : '32rem'; $('#mb').innerHTML = `<button aria-label="Close" class="absolute top-4 right-4 z-10 w-9 h-9 rounded-lg grid place-items-center hover:bg-soft" onclick="closeM()"><i class="ms">close</i></button><div class="pt-6 md:pt-0">${h}</div>`; $('#md').classList.replace('hidden', 'grid'); document.body.style.overflow = 'hidden' }
-    function closeM() { $('#md').classList.replace('grid', 'hidden'); document.body.style.overflow = ''; const v = $('#mv video'); v && v.pause() }
-    $('#md').onclick = e => { if (e.target.id == 'md') closeM() }; addEventListener('keydown', e => e.key == 'Escape' && closeM());
+/* about tabs */
+let tab='about';
+function showCategory(k,q){tab=k;$$('#tabs button').forEach(b=>{const on=b.dataset.t==k;b.classList.toggle('on',on);if(on){$('#pill').style.width=b.offsetWidth+'px';$('#pill').style.transform=`translateX(${b.offsetLeft}px)`}});$$('.pn').forEach(p=>{p.hidden=p.id!='p-'+k;if(!p.hidden&&!q){p.classList.remove('fade');void p.offsetWidth;p.classList.add('fade')}});U.forEach(f=>f())}
+if($('#tabs')){
+ sc($('#p-skills'),SK,s=>`<div class="card p-6 min-w-[270px] sm:min-w-[320px] snap-start border-t-2 border-t-gd"><div class="flex items-center gap-3 mb-5"><div class="w-11 h-11 rounded-lg bg-soft text-ac grid place-items-center"><i class="ms">${s[0]}</i></div><h3 class="font-serif text-2xl font-medium">${s[1]}</h3></div><div class="flex flex-wrap gap-2">${s[2].map(x=>`<span class="chip">${x}</span>`).join('')}</div></div>`);
+ sc($('#p-experience'),EX,e=>`<div class="card p-6 min-w-[280px] sm:min-w-[340px] snap-start flex flex-col border-l-2 border-l-ac"><span class="chip w-fit">${e[3]}</span><h3 class="font-serif text-2xl font-medium mt-4">${e[0]}</h3><a href="${e[2]}" target="_blank" rel="noopener" class="text-ac text-sm font-semibold mt-1 inline-flex items-center gap-1 hover:underline">${e[1]}<i class="ms text-base">north_east</i></a><p class="text-sm opacity-75 mt-4">${e[4]}</p></div>`);
+ $$('#tabs button').forEach(b=>b.onclick=()=>showCategory(b.dataset.t));showCategory('about');addEventListener('resize',()=>showCategory(tab,1));addEventListener('load',()=>showCategory(tab,1))}
 
-    /* marquee */
-    $('#mq').innerHTML = [...T, ...T].map(t => `<span class="flex items-center gap-8 pr-8">${t}<span class="w-1.5 h-1.5 rounded-full bg-ac"></span></span>`).join('');
+/* github graph */
+if($('#gh'))(()=>{let s=7;const r=()=>(s=s*16807%2147483647)/2147483647;let h='';for(let i=0;i<371;i++){const v=r()<.35?0:Math.min(4,Math.floor(r()*r()*5)+(r()>.8?1:0));h+=`<span class="gc" style="--l:${v}" title="${v} contributions"></span>`}$('#gh').innerHTML=h;$('#ghl').href='https://github.com/'+GH;
+ if(GH){const im=new Image();im.src=`https://ghchart.rshah.org/9a2857/${GH}`;im.alt='GitHub contribution graph';im.className='ghi w-full min-w-[640px]';im.onload=()=>{$('#gh').replaceWith(im);$('#ghn').remove()}}})();
 
-    /* craft showcase */
-    let cur = 0, tm;
-    function pick(i, s) { cur = i; s && clearInterval(tm); $$('.fw').forEach((b, k) => b.classList.toggle('on', k == i)); $$('.pane').forEach((b, k) => b.classList.toggle('on', k == i)); const f = F[i]; $('#ftt').textContent = f[1]; $('#ft').textContent = f[2]; $('#fd').textContent = f[3] }
-    $('#fwl').innerHTML = F.map((f, i) => `<button class="fw" onmouseenter="pick(${i},1)" onfocus="pick(${i},1)" onclick="pick(${i},1)">${f[0]}.</button>`).join('');
-    $('#wv').innerHTML = Array.from({ length: 44 }, (_, i) => `<i style="--i:${i}"></i>`).join('');
-    pick(0); if (!matchMedia('(prefers-reduced-motion:reduce)').matches) tm = setInterval(() => pick((cur + 1) % 4), 4200);
+/* contact */
+if($('#cf')){$('#em').textContent=EMAIL;H('#ci',['Web','Software','Video','Design','Voice'].map(x=>`<button type="button" class="chip" onclick="this.classList.toggle('on')">${x}</button>`).join(''));
+ $('#cf').onsubmit=e=>{e.preventDefault();const f=e.target,[n,m]=f.querySelectorAll('input'),w=$$('#ci .on').map(x=>x.textContent).join(', ');location.href=`mailto:${EMAIL}?subject=${encodeURIComponent('Project inquiry from '+n.value)}&body=${encodeURIComponent((w?'Interested in: '+w+'\n\n':'')+f.querySelector('textarea').value+'\n\n'+n.value+' ('+m.value+')')}`;toast('Opening your email app','send')};
+ $('#cp').onclick=()=>(navigator.clipboard?navigator.clipboard.writeText(EMAIL):Promise.reject()).then(()=>toast('Email copied','mail'),()=>toast(EMAIL,'mail'))}
 
-    /* services (nav menu + modal) */
-    $('#svm').innerHTML = SV.map((s, i) => `<button onclick="svc(${i})" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-soft text-sm text-left"><i class="ms text-ac">${s[0]}</i>${s[1]}</button>`).join('');
-    function svc(i) { const f = s => `<div class="flex gap-4 py-4 border-b border-fg/10 last:border-0"><div class="w-12 h-12 shrink-0 rounded-lg bg-soft text-ac grid place-items-center"><i class="ms">${s[0]}</i></div><div><h4 class="font-serif text-2xl">${s[1]}</h4><p class="text-sm opacity-75 mt-1">${s[2]}</p><p class="text-xs text-ac mt-2 font-semibold">${s[3]}</p></div></div>`; modal(`<h3 class="font-serif text-4xl mb-3 pr-10">${i == null ? 'Services' : SV[i][1]}</h3>` + (i == null ? SV.map(f).join('') : f(SV[i])) + `<a href="#contact" onclick="closeM()" class="btn bp mt-6">Start a project</a>`) }
+/* progress, reveal + counters, loader */
+addEventListener('scroll',()=>{$('#sp').style.width=scrollY/(root.scrollHeight-innerHeight)*100+'%'},{passive:true});
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;e.target.classList.add('in');e.target.querySelectorAll('[data-n]').forEach(n=>{const to=+n.dataset.n;let v=0;const t=setInterval(()=>{v=Math.min(to,v+Math.ceil(to/25));n.textContent=v;v>=to&&clearInterval(t)},45)});io.unobserve(e.target)}),{threshold:.12});$$('.rv').forEach(x=>io.observe(x));
+if($('#lt')){const L=['<span class="opacity-50">// initializing portfolio</span>','<span class="text-ac">const</span> dev = <span class="text-gd">"Guen Zandrave"</span>;','<span class="text-ac">await</span> load(["code", "cut", "craft", "voice"]);','<span class="text-ac">&#10003;</span> compiled. Hello, World!'];let i=0;const p=$('#lt'),t=setInterval(()=>{p.innerHTML+=(i?'\n':'')+L[i++];i>=L.length&&clearInterval(t)},380);
+ const hide=()=>{const l=$('#ld');if(!l)return;l.style.opacity=0;setTimeout(()=>l.remove(),700)};addEventListener('load',()=>setTimeout(hide,1900));setTimeout(hide,4200)}
 
-    /* horizontal scroller with arrows and progress */
-    function sc(box, items, r) {
-      box.innerHTML = `<div class="flex items-center justify-between mb-5"><span class="text-xs opacity-60 flex items-center gap-2"><i class="ms">swipe</i>Swipe or use the arrows</span><div class="flex gap-2"><button class="ab" aria-label="Previous"><i class="ms">arrow_back</i></button><button class="ab" aria-label="Next"><i class="ms">arrow_forward</i></button></div></div><div class="flex gap-4 overflow-x-auto snap-x snap-mandatory no-sb pb-1">${items.map(r).join('')}</div><div class="h-0.5 bg-fg/10 mt-5 rounded relative"><div class="absolute h-full bg-ac rounded"></div></div>`;
-      const s = box.children[1], [a, b] = box.querySelectorAll('.ab'), t = box.lastChild.firstChild;
-      const u = () => { const w = s.scrollWidth, c = s.clientWidth; if (!w) return; t.style.width = c / w * 100 + '%'; t.style.left = s.scrollLeft / w * 100 + '%'; a.disabled = s.scrollLeft < 4; b.disabled = w - c - s.scrollLeft < 4 };
-      a.onclick = () => s.scrollBy({ left: -s.clientWidth * .8, behavior: 'smooth' }); b.onclick = () => s.scrollBy({ left: s.clientWidth * .8, behavior: 'smooth' }); s.addEventListener('scroll', u); U.push(u); u()
-    }
-    sc($('#p-skills'), SK, s => `<div class="card p-6 min-w-[270px] sm:min-w-[320px] snap-start border-t-2 border-t-gd"><div class="flex items-center gap-3 mb-5"><div class="w-11 h-11 rounded-lg bg-soft text-ac grid place-items-center"><i class="ms">${s[0]}</i></div><h3 class="font-serif text-2xl font-medium">${s[1]}</h3></div><div class="flex flex-wrap gap-2">${s[2].map(x => `<span class="chip">${x}</span>`).join('')}</div></div>`);
-    sc($('#p-experience'), EX, e => `<div class="card p-6 min-w-[280px] sm:min-w-[340px] snap-start flex flex-col border-l-2 border-l-ac"><span class="chip w-fit">${e[3]}</span><h3 class="font-serif text-2xl font-medium mt-4">${e[0]}</h3><a href="${e[2]}" target="_blank" rel="noopener" class="text-ac text-sm font-semibold mt-1 inline-flex items-center gap-1 hover:underline">${e[1]}<i class="ms text-base">north_east</i></a><p class="text-sm opacity-75 mt-4">${e[4]}</p></div>`);
-    sc($('#rvw'), RV, r => `<figure class="card p-7 min-w-[290px] md:min-w-[400px] snap-start flex flex-col"><span class="font-serif text-6xl leading-none text-gd h-8">&ldquo;</span><div class="text-gd tracking-widest mt-2">${'&#9733;'.repeat(r[3]) + '&#9734;'.repeat(5 - r[3])}</div><blockquote class="mt-3 opacity-85 leading-relaxed flex-1">${r[2]}</blockquote><figcaption class="flex items-center gap-3 mt-6 pt-5 border-t border-fg/10"><div class="relative w-12 h-12 rounded-full bg-soft text-ac font-semibold grid place-items-center overflow-hidden shrink-0">${r[0].split(' ').map(w => w[0]).join('')}<img src="images/clients/${r[0].split(' ')[0].toLowerCase()}.jpg" alt="${r[0]}" class="absolute inset-0 w-full h-full object-cover" onerror="this.remove()"></div><div class="flex-1"><b class="block text-sm">${r[0]}</b><span class="text-xs opacity-60">${r[1]}</span></div><span class="text-xs opacity-60">${r[4]}</span></figcaption></figure>`);
+/* routing: home view vs all-projects view, hash based (#/projects or #/projects/Web) */
+let was=null;
+function route(){const m=location.hash.match(/^#\/projects(?:\/(\w+))?/),all=!!m;if(!all&&was===false)return;was=all;
+ $$('main>*').forEach(e=>e.classList.toggle('off',all&&e.id!='projects'));
+ $('#pt').textContent=all?'All projects':'Selected work';$('#back').classList.toggle('off',!all);
+ flt(m&&m[1]||'All',all?0:6);
+ if(all)scrollTo(0,0);else{showCategory(tab,1);const t=document.getElementById(location.hash.slice(1));t&&t.scrollIntoView()}}
+addEventListener('hashchange',route);route();
 
-    /* tabs */
-    let tab = 'about';
-    function showCategory(k, q) { tab = k; $$('#tabs button').forEach(b => { const on = b.dataset.t == k; b.classList.toggle('on', on); if (on) { $('#pill').style.width = b.offsetWidth + 'px'; $('#pill').style.transform = `translateX(${b.offsetLeft}px)` } }); $$('.pn').forEach(p => { p.hidden = p.id != 'p-' + k; if (!p.hidden && !q) { p.classList.remove('fade'); void p.offsetWidth; p.classList.add('fade') } }); U.forEach(f => f()) }
-    $$('#tabs button').forEach(b => b.onclick = () => showCategory(b.dataset.t)); showCategory('about'); addEventListener('resize', () => showCategory(tab, 1));
-
-    /* projects + gallery modal */
-    function flt(c) { $('#flt').innerHTML = ['All', 'Web', 'Video', 'Design', 'Voice', 'Software'].map(x => `<button onclick="flt('${x}')" class="chip ${x == c ? 'on' : ''}">${x}</button>`).join(''); $('#pj').innerHTML = PJ.map((p, i) => [p, i]).filter(([p]) => c == 'All' || p[2] == c).map(([p, i]) => `<button onclick="prj(${i})" class="card lift text-left overflow-hidden group"><div class="relative h-44 grid place-items-center bg-gradient-to-br from-soft to-sf"><i class="ms text-5xl text-ac/70 group-hover:scale-125 transition">${p[3]}</i><img src="images/projects/${p[0]}-1.jpg" alt="${p[1]}" class="absolute inset-0 w-full h-full object-cover" onerror="this.remove()"></div><div class="p-6"><div class="flex justify-between items-center"><span class="chip">${p[2]}</span><span class="text-xs opacity-50">${p[7]}</span></div><h3 class="font-serif text-2xl font-medium mt-3">${p[1]}</h3><p class="text-sm opacity-70 mt-1">${p[4]}</p></div></button>`).join('') }
-    function prj(i) {
-      const p = PJ[i], m = [`images/projects/${p[0]}-1.jpg`, `images/projects/${p[0]}-2.jpg`, `videos/${p[0]}.mp4`], v = s => s.endsWith('.mp4'), ph = ic => `<div class="absolute inset-0 grid place-items-center bg-gradient-to-br from-soft to-sf"><i class="ms text-5xl text-ac/60">${ic}</i></div>`;
-      window.sh = k => { $('#mv').innerHTML = ph(v(m[k]) ? 'play_circle' : p[3]) + (v(m[k]) ? `<video src="${m[k]}" controls autoplay muted class="absolute inset-0 w-full h-full object-cover bg-black" onerror="this.remove()"></video>` : `<img src="${m[k]}" alt="${p[1]}" class="absolute inset-0 w-full h-full object-cover" onerror="this.remove()">`); $$('.th').forEach((t, j) => t.classList.toggle('on', j == k)) };
-      modal(`<div class="grid md:grid-cols-5 gap-8"><div class="md:col-span-3"><div id="mv" class="relative aspect-video rounded-lg overflow-hidden border border-fg/10"></div><div class="grid grid-cols-3 gap-3 mt-3">${m.map((s, k) => `<button onclick="sh(${k})" class="th relative aspect-video rounded-md overflow-hidden border border-fg/10 opacity-60 hover:opacity-100 transition">${ph(v(s) ? 'play_arrow' : 'image')}${v(s) ? '' : `<img src="${s}" alt="" class="absolute inset-0 w-full h-full object-cover" onerror="this.remove()">`}</button>`).join('')}</div></div><div class="md:col-span-2"><span class="chip">${p[2]}</span><h3 class="font-serif text-4xl font-medium mt-3 leading-tight">${p[1]}</h3><p class="opacity-75 mt-3 text-sm leading-relaxed">${p[4]}</p><dl class="mt-6 text-sm divide-y divide-fg/10 border-y border-fg/10"><div class="flex justify-between py-3"><dt class="opacity-60">Client</dt><dd class="font-semibold">${p[6]}</dd></div><div class="flex justify-between py-3"><dt class="opacity-60">Date</dt><dd class="font-semibold">${p[7]}</dd></div></dl><p class="text-sm opacity-60 mt-5">Technologies</p><div class="flex flex-wrap gap-2 mt-2">${p[5].map(t => `<span class="chip">${t}</span>`).join('')}</div><div class="flex gap-3 mt-7"><a href="#" class="btn bp">Live demo</a><a href="#" class="btn bo">Source code</a></div></div></div>`, 1); sh(0)
-    }
-    flt('All');
-
-    /* github graph */
-    (() => {
-      let s = 7; const r = () => (s = s * 16807 % 2147483647) / 2147483647; let h = ''; for (let i = 0; i < 371; i++) { const v = r() < .35 ? 0 : Math.min(4, Math.floor(r() * r() * 5) + (r() > .8 ? 1 : 0)); h += `<span class="gc" style="--l:${v}" title="${v} contributions"></span>` } $('#gh').innerHTML = h; $('#ghl').href = 'https://github.com/' + GH;
-      if (GH) { const im = new Image(); im.src = `https://ghchart.rshah.org/9a2857/${GH}`; im.alt = 'GitHub contribution graph'; im.className = 'ghi w-full min-w-[640px]'; im.onload = () => { $('#gh').replaceWith(im); $('#ghn').remove() } }
-    })();
-
-    /* contact, footer */
-    $('#em').textContent = EMAIL;
-    $('#ci').innerHTML = ['Web', 'Software', 'Video', 'Design', 'Voice'].map(x => `<button type="button" class="chip" onclick="this.classList.toggle('on')">${x}</button>`).join('');
-    $('#cf').onsubmit = e => { e.preventDefault(); const f = e.target, [n, m] = f.querySelectorAll('input'), w = $$('#ci .on').map(x => x.textContent).join(', '); location.href = `mailto:${EMAIL}?subject=${encodeURIComponent('Project inquiry from ' + n.value)}&body=${encodeURIComponent((w ? 'Interested in: ' + w + '\n\n' : '') + f.querySelector('textarea').value + '\n\n' + n.value + ' (' + m.value + ')')}`; toast('Opening your email app', 'send') };
-    $('#cp').onclick = () => (navigator.clipboard ? navigator.clipboard.writeText(EMAIL) : Promise.reject()).then(() => toast('Email copied', 'mail'), () => toast(EMAIL, 'mail'));
-    $('#soc').innerHTML = SO.map(s => `<a href="${s[1]}" target="_blank" rel="noopener" class="chip">${s[0]}<i class="ms text-base">north_east</i></a>`).join('');
-    $('#yr').textContent = new Date().getFullYear();
-
-    /* scroll progress, reveal + counters, loader */
-    addEventListener('scroll', () => { $('#sp').style.width = scrollY / (root.scrollHeight - innerHeight) * 100 + '%' }, { passive: true });
-    const io = new IntersectionObserver(es => es.forEach(e => { if (!e.isIntersecting) return; e.target.classList.add('in'); e.target.querySelectorAll('[data-n]').forEach(n => { const to = +n.dataset.n; let v = 0; const t = setInterval(() => { v = Math.min(to, v + Math.ceil(to / 25)); n.textContent = v; v >= to && clearInterval(t) }, 45) }); io.unobserve(e.target) }), { threshold: .12 }); $$('.rv').forEach(x => io.observe(x));
-    const hide = () => { const l = $('#ld'); if (!l) return; l.style.opacity = 0; setTimeout(() => l.remove(), 700) };
-    addEventListener('load', () => setTimeout(() => { hide(); showCategory(tab, 1) }, 2200)); setTimeout(hide, 4500);
-  </script>
-</body>
-
-</html>
+</script>
+</body></html>
