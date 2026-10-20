@@ -1079,7 +1079,8 @@
         <div id="tabs"
           class="relative inline-flex max-w-full overflow-x-auto no-sb mt-8 p-1.5 rounded-xl bg-card border border-fg/10">
           <span id="pill"></span><button data-t="about">About Me</button><button data-t="skills">Skills</button><button
-            data-t="experience">Experience</button><button data-t="education">Education</button></div>
+            data-t="experience">Experience</button><button data-t="education">Education</button>
+        </div>
         <div class="mt-10 rv">
           <div class="pn" id="p-about">
             <div class="card grid md:grid-cols-5 overflow-hidden">
@@ -1159,7 +1160,8 @@
             </div><textarea required name="message" rows="4" aria-label="Project details"
               placeholder="Tell me about your project" class="fi resize-none"></textarea>
             <button id="cs" class="btn bp w-fit sb"><span class="id inline-flex items-center gap-2">Send message<i
-                  class="ms">send</i></span><span class="ld items-center gap-2"><span class="rg"></span>Sending</span></button>
+                  class="ms">send</i></span><span class="ld items-center gap-2"><span
+                  class="rg"></span>Sending</span></button>
             <p id="ce" hidden class="text-sm text-ac" role="alert">The message didn't go through. Check your connection
               and try again, or email me directly.</p>
           </form>
